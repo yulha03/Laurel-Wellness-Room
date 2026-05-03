@@ -51,6 +51,7 @@
       border-radius: 30px;
       cursor: pointer;
       font-weight: 700;
+      margin: 3px;
     }
 
     .btn-primary {
@@ -74,7 +75,8 @@
       padding: 0 20px;
     }
 
-    .hero, .card {
+    .hero,
+    .card {
       background: var(--cream);
       padding: 24px;
       border-radius: var(--radius);
@@ -111,7 +113,8 @@
       display: block;
     }
 
-    input, select {
+    input,
+    select {
       width: 100%;
       padding: 11px;
       border-radius: 10px;
@@ -175,7 +178,7 @@
     }
 
     .hidden {
-      display: none;
+      display: none !important;
     }
 
     .modal {
@@ -221,11 +224,21 @@
       font-weight: bold;
     }
 
+    .status-completed {
+      color: #555;
+      font-weight: bold;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 16px;
       font-size: 0.9rem;
+      min-width: 900px;
     }
 
     th, td {
@@ -252,97 +265,104 @@
 
   <nav>
     <div class="nav-title">Laurel Hall Wellness Room</div>
-    <button class="btn btn-primary" onclick="openStaffLogin()">Laurel Staff Login</button>
+    <button class="btn btn-primary" id="staffLoginBtn" onclick="openStaffLogin()">Laurel Staff Login</button>
   </nav>
 
   <div class="container">
 
-    <section class="hero">
-      <h1>Wellness Room Booking</h1>
-      <p>
-        Reserve a peaceful 30-minute session.<br>
-        <strong>Only 1 person permitted per slot.</strong>
-      </p>
-      <p style="margin-top:10px;">Open Daily · 9:00 AM – 4:00 PM · 30 min sessions</p>
-    </section>
+    <div id="residentContent">
 
-    <section class="card">
-      <h2>Room Rules</h2>
-      <p style="margin-bottom:12px;">Please read before entering:</p>
+      <section class="hero">
+        <h1>Wellness Room Booking</h1>
+        <p>
+          Reserve a peaceful 30-minute session.<br>
+          <strong>Only 1 person permitted per slot.</strong>
+        </p>
+        <p style="margin-top:10px;">Open Daily · 9:00 AM – 4:00 PM · 30 min sessions</p>
+      </section>
 
-      <div class="rules-box">
-        <p>1. Be respectful to the space and the items in it;</p>
-        <p>2. Clean up after yourself;</p>
-        <p>3. Do not take out any items from the Wellness Room, save for the coffee/tea you make;</p>
-        <p>4. Absolutely no inappropriate activities in the Wellness Room;</p>
-        <p>5. No extra time outside of the 30 minute booked slot, unless discussed prior.</p>
-        <br>
-        <p>Failure to abide by these rules will result in disciplinary actions with the Residence Life staff.</p>
-      </div>
-    </section>
+      <section class="card">
+        <h2>Room Rules</h2>
+        <p style="margin-bottom:12px;">Please read before entering:</p>
 
-    <section class="card">
-      <h2>Check Availability</h2>
+        <div class="rules-box">
+          <p>1. Be respectful to the space and the items in it;</p>
+          <p>2. Clean up after yourself;</p>
+          <p>3. Do not take out any items from the Wellness Room, save for the coffee/tea you make;</p>
+          <p>4. Absolutely no inappropriate activities in the Wellness Room;</p>
+          <p>5. No extra time outside of the 30 minute booked slot, unless discussed prior.</p>
+          <br>
+          <p>Failure to abide by these rules will result in disciplinary actions with the Residence Life staff.</p>
+        </div>
+      </section>
 
-      <label for="datePicker">Select Date</label>
-      <input type="date" id="datePicker" onchange="changeDate()" />
+      <section class="card">
+        <h2>Check Availability</h2>
 
-      <div class="slots" id="slotsGrid">
-        Loading slots…
-      </div>
+        <label for="datePicker">Select Date</label>
+        <input type="date" id="datePicker" onchange="changeDate()" />
 
-      <div class="legend">
-        <span>Available</span>
-        <span>Booked</span>
-        <span>Past</span>
-      </div>
-    </section>
+        <div class="slots" id="slotsGrid">
+          Loading slots…
+        </div>
 
-    <section class="card">
-      <h2>Cancel Your Booking</h2>
-      <p style="margin-bottom:14px;">
-        Enter your NJIT ID, booking date, and time slot to cancel your reservation.
-      </p>
+        <div class="legend">
+          <span>Available</span>
+          <span>Booked</span>
+          <span>Past</span>
+        </div>
+      </section>
 
-      <div id="cancelAlert"></div>
+      <section class="card">
+        <h2>Cancel Your Booking</h2>
+        <p style="margin-bottom:14px;">
+          Enter your NJIT ID, booking date, and time slot to cancel your reservation.
+        </p>
 
-      <label>NJIT ID #</label>
-      <input type="text" id="cancel_njitid" />
+        <div id="cancelAlert"></div>
 
-      <label>Booking Date</label>
-      <input type="date" id="cancel_date" />
+        <label>NJIT ID #</label>
+        <input type="text" id="cancel_njitid" />
 
-      <label>Booking Time</label>
-      <select id="cancel_slot"></select>
+        <label>Booking Date</label>
+        <input type="date" id="cancel_date" />
 
-      <button class="btn btn-danger" onclick="cancelResidentBooking()">Cancel My Booking</button>
-    </section>
+        <label>Booking Time</label>
+        <select id="cancel_slot"></select>
+
+        <button class="btn btn-danger" onclick="cancelResidentBooking()">Cancel My Booking</button>
+      </section>
+
+    </div>
 
     <section class="card hidden" id="staffDashboard">
-      <h2>Staff/OA Dashboard</h2>
-      <p>Laurel Hall Wellness Room · All Registrations and Cancellations</p>
+      <h2>Staff/OA Spreadsheet</h2>
+      <p>Laurel Hall Wellness Room · Booking Records</p>
       <br>
-      <button class="btn btn-danger" onclick="logoutStaff()">Log Out</button>
-      <button class="btn btn-danger" onclick="clearAllBookings()">Clear All</button>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Time Slot</th>
-            <th>Name</th>
-            <th>NJIT ID</th>
-            <th>Room #</th>
-            <th>Phone</th>
-            <th>Status</th>
-            <th>Cancelled At</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="staffTableBody">
-          <tr><td colspan="9">Loading…</td></tr>
-        </tbody>
-      </table>
+      <button class="btn btn-danger" onclick="logoutStaff()">Log Out</button>
+      <button class="btn btn-danger" onclick="clearAllBookings()">Clear All Records</button>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time Slot</th>
+              <th>Name</th>
+              <th>NJIT ID</th>
+              <th>Room #</th>
+              <th>Phone</th>
+              <th>Status</th>
+              <th>Cancelled At</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="staffTableBody">
+            <tr><td colspan="9">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
   </div>
@@ -470,6 +490,27 @@
         h++;
       }
       return `${h}:${String(m).padStart(2, "0")}`;
+    }
+
+    function slotEndDateTime(date, slot) {
+      const end = slotEnd(slot);
+      const [h, m] = end.split(":").map(Number);
+      return new Date(`${date}T${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:00`);
+    }
+
+    function getDisplayStatus(booking) {
+      if (booking.status === "Cancelled") {
+        return "Cancelled";
+      }
+
+      const endTime = slotEndDateTime(booking.date, booking.slot);
+      const now = new Date();
+
+      if (endTime < now) {
+        return "Completed";
+      }
+
+      return "Booked";
     }
 
     function formatDate(iso) {
@@ -662,7 +703,7 @@
           cancellationNote: "Resident cancelled this booking."
         });
 
-        showAlert("cancelAlert", "Your booking has been cancelled. The OA/staff dashboard has been updated.", "success");
+        showAlert("cancelAlert", "Your booking has been cancelled. Staff/OA spreadsheet has been updated.", "success");
 
         document.getElementById("cancel_njitid").value = "";
 
@@ -695,7 +736,11 @@
 
       if (email === STAFF_EMAIL && password === STAFF_PASSWORD) {
         closeStaffLogin();
+
+        document.getElementById("residentContent").classList.add("hidden");
         document.getElementById("staffDashboard").classList.remove("hidden");
+        document.getElementById("staffLoginBtn").classList.add("hidden");
+
         renderStaffTable();
       } else {
         showAlert("loginAlert", "Invalid staff login.", "error");
@@ -704,6 +749,8 @@
 
     function logoutStaff() {
       document.getElementById("staffDashboard").classList.add("hidden");
+      document.getElementById("residentContent").classList.remove("hidden");
+      document.getElementById("staffLoginBtn").classList.remove("hidden");
     }
 
     function renderStaffTable() {
@@ -711,7 +758,7 @@
       if (!body) return;
 
       if (allBookings.length === 0) {
-        body.innerHTML = `<tr><td colspan="9">No bookings yet.</td></tr>`;
+        body.innerHTML = `<tr><td colspan="9">No booking records yet.</td></tr>`;
         return;
       }
 
@@ -720,8 +767,12 @@
       });
 
       body.innerHTML = sorted.map(b => {
-        const status = b.status || "Booked";
-        const statusClass = status === "Cancelled" ? "status-cancelled" : "status-booked";
+        const status = getDisplayStatus(b);
+
+        let statusClass = "status-booked";
+        if (status === "Cancelled") statusClass = "status-cancelled";
+        if (status === "Completed") statusClass = "status-completed";
+
         const cancelledAt = b.cancelledAt || "-";
 
         return `
