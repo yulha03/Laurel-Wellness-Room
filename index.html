@@ -1,713 +1,686 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Laurel Hall – Wellness Room</title>
-<style>
-  :root {
-    --orange-deep:   #c2560a;
-    --orange-mid:    #e07830;
-    --orange-warm:   #f4a05a;
-    --orange-soft:   #fcd5a8;
-    --orange-pale:   #fff4ea;
-    --orange-glow:   #ffe8cc;
-    --cream:         #fffdf8;
-    --text-dark:     #3a1f00;
-    --text-mid:      #6b3a10;
-    --text-light:    #9b5a28;
-    --shadow:        0 4px 20px rgba(194,86,10,.15);
-    --radius:        14px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--orange-pale);color:var(--text-dark);min-height:100vh}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laurel Hall Wellness Room</title>
 
-  /* ── NAV ── */
-  nav{background:linear-gradient(135deg,var(--orange-deep),var(--orange-mid));color:#fff;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:66px;box-shadow:0 3px 14px rgba(0,0,0,.25)}
-  .nav-brand{display:flex;align-items:center;gap:12px}
-  .nav-brand svg{width:34px;height:34px;opacity:.93}
-  .nav-title{font-size:1.22rem;font-weight:700;letter-spacing:.3px}
-  .nav-title span{font-weight:300;opacity:.85}
-  .nav-actions{display:flex;gap:10px;align-items:center}
-  .btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:50px;border:none;cursor:pointer;font-size:.88rem;font-weight:600;transition:all .2s}
-  .btn-ghost{background:rgba(255,255,255,.18);color:#fff;border:1.5px solid rgba(255,255,255,.4)}
-  .btn-ghost:hover{background:rgba(255,255,255,.30)}
-  .btn-primary{background:#fff;color:var(--orange-deep)}
-  .btn-primary:hover{background:var(--orange-glow)}
-  .btn-orange{background:var(--orange-mid);color:#fff}
-  .btn-orange:hover{background:var(--orange-deep)}
-  .btn-danger{background:#c0392b;color:#fff}
-  .btn-danger:hover{background:#a93226}
+  <style>
+    :root {
+      --orange-deep: #c2560a;
+      --orange-mid: #e07830;
+      --orange-soft: #fcd5a8;
+      --orange-pale: #fff4ea;
+      --cream: #fffdf8;
+      --text-dark: #3a1f00;
+      --text-mid: #6b3a10;
+      --shadow: 0 4px 20px rgba(194, 86, 10, 0.15);
+      --radius: 14px;
+    }
 
-  /* ── HERO ── */
-  .hero{background:linear-gradient(160deg,var(--orange-glow) 0%,var(--cream) 100%);padding:48px 28px 36px;text-align:center;border-bottom:1.5px solid var(--orange-soft)}
-  .hero h1{font-size:2rem;font-weight:800;color:var(--orange-deep);margin-bottom:8px}
-  .hero p{color:var(--text-mid);font-size:1rem;max-width:520px;margin:0 auto 22px}
-  .hours-badge{display:inline-flex;align-items:center;gap:8px;background:var(--orange-soft);color:var(--orange-deep);padding:7px 18px;border-radius:50px;font-weight:600;font-size:.9rem}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  /* ── LAYOUT ── */
-  .main-wrap{max-width:1100px;margin:36px auto;padding:0 20px;display:grid;grid-template-columns:1fr 340px;gap:28px}
-  @media(max-width:820px){.main-wrap{grid-template-columns:1fr}}
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--orange-pale);
+      color: var(--text-dark);
+      min-height: 100vh;
+    }
 
-  /* ── CARDS ── */
-  .card{background:var(--cream);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-  .card-header{background:linear-gradient(135deg,var(--orange-warm),var(--orange-soft));padding:16px 22px;display:flex;align-items:center;gap:10px}
-  .card-header h2{font-size:1.05rem;font-weight:700;color:var(--text-dark)}
-  .card-body{padding:22px}
+    nav {
+      background: linear-gradient(135deg, var(--orange-deep), var(--orange-mid));
+      color: white;
+      padding: 18px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
 
-  /* ── DATE PICKER ── */
-  .date-row{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;align-items:flex-end}
-  .field{display:flex;flex-direction:column;gap:5px;flex:1;min-width:160px}
-  label{font-size:.82rem;font-weight:600;color:var(--text-mid);text-transform:uppercase;letter-spacing:.5px}
-  input,select{padding:10px 13px;border:1.5px solid var(--orange-soft);border-radius:9px;font-size:.95rem;background:#fff;color:var(--text-dark);outline:none;transition:border-color .2s}
-  input:focus,select:focus{border-color:var(--orange-mid)}
+    .nav-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+    }
 
-  /* ── SLOTS GRID ── */
-  .slots-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
-  .slot{border-radius:10px;padding:11px 8px;text-align:center;cursor:pointer;transition:all .2s;border:2px solid transparent;font-size:.88rem;font-weight:600;position:relative}
-  .slot-time{font-size:.82rem;color:inherit;opacity:.85}
-  .slot.available{background:var(--orange-glow);color:var(--orange-deep);border-color:var(--orange-soft)}
-  .slot.available:hover{background:var(--orange-soft);border-color:var(--orange-mid);transform:translateY(-2px)}
-  .slot.full{background:#ffd4c5;color:#9b3010;cursor:not-allowed;border-color:#f0a080}
-  .slot.selected{background:var(--orange-mid);color:#fff;border-color:var(--orange-deep);transform:translateY(-2px);box-shadow:0 4px 14px rgba(224,120,48,.4)}
-  .slot.past{background:#f0ece8;color:#bbb;cursor:not-allowed;border-color:#e8e0d8}
-  .slot-count{font-size:.72rem;margin-top:3px;opacity:.8}
+    .btn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 700;
+    }
 
-  /* ── FORM ── */
-  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media(max-width:560px){.form-grid{grid-template-columns:1fr}}
-  .form-grid .full{grid-column:1/-1}
-  .rules-box{background:var(--orange-glow);border-left:4px solid var(--orange-mid);border-radius:0 9px 9px 0;padding:13px 16px;font-size:.85rem;color:var(--text-mid);line-height:1.7}
-  .rules-box strong{color:var(--orange-deep)}
-  .rules-box ul{padding-left:18px;margin-top:6px}
+    .btn-primary {
+      background: white;
+      color: var(--orange-deep);
+    }
 
-  /* ── TIMER ── */
-  .timer-card{position:sticky;top:20px}
-  .timer-display{text-align:center;padding:28px 20px}
-  .timer-ring{position:relative;width:160px;height:160px;margin:0 auto 18px}
-  .timer-ring svg{transform:rotate(-90deg)}
-  .timer-ring circle{fill:none;stroke-width:12;transition:stroke-dashoffset .9s linear}
-  .ring-bg{stroke:var(--orange-soft)}
-  .ring-fg{stroke:var(--orange-mid);stroke-linecap:round}
-  .timer-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
-  .timer-min{font-size:2rem;font-weight:800;color:var(--orange-deep)}
-  .timer-label{font-size:.72rem;color:var(--text-light);font-weight:600;text-transform:uppercase;letter-spacing:.6px}
-  .timer-info{font-size:.9rem;color:var(--text-mid);margin-bottom:6px}
-  .timer-info strong{color:var(--orange-deep)}
-  .no-session{text-align:center;padding:30px 20px;color:var(--text-light);font-size:.9rem}
+    .btn-orange {
+      background: var(--orange-mid);
+      color: white;
+    }
 
-  /* ── MODAL ── */
-  .modal-overlay{position:fixed;inset:0;background:rgba(58,31,0,.45);backdrop-filter:blur(4px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px}
-  .modal{background:var(--cream);border-radius:18px;width:100%;max-width:520px;box-shadow:0 20px 60px rgba(0,0,0,.3);overflow:hidden;animation:popIn .22s ease}
-  @keyframes popIn{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
-  .modal-header{background:linear-gradient(135deg,var(--orange-deep),var(--orange-mid));color:#fff;padding:18px 24px;display:flex;align-items:center;justify-content:space-between}
-  .modal-header h3{font-size:1.1rem;font-weight:700}
-  .modal-close{background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;opacity:.8;line-height:1}
-  .modal-close:hover{opacity:1}
-  .modal-body{padding:24px}
-  .modal-footer{padding:16px 24px;background:var(--orange-pale);display:flex;gap:10px;justify-content:flex-end}
+    .btn-danger {
+      background: #c0392b;
+      color: white;
+    }
 
-  /* ── STAFF ── */
-  .staff-wrap{max-width:1000px;margin:30px auto;padding:0 20px}
-  .staff-table{width:100%;border-collapse:collapse;font-size:.88rem}
-  .staff-table th{background:var(--orange-mid);color:#fff;padding:11px 14px;text-align:left;font-weight:600}
-  .staff-table td{padding:10px 14px;border-bottom:1px solid var(--orange-glow)}
-  .staff-table tr:hover td{background:var(--orange-pale)}
-  .badge{display:inline-block;padding:2px 10px;border-radius:50px;font-size:.75rem;font-weight:700}
-  .badge-active{background:#d4edda;color:#1a6630}
-  .badge-upcoming{background:var(--orange-glow);color:var(--orange-deep)}
-  .badge-done{background:#e8e0d8;color:#888}
-  .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
-  .stat-box{background:var(--cream);border-radius:12px;padding:18px;text-align:center;box-shadow:var(--shadow)}
-  .stat-num{font-size:2rem;font-weight:800;color:var(--orange-deep)}
-  .stat-lbl{font-size:.8rem;color:var(--text-light);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+    .container {
+      max-width: 1050px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
 
-  /* ── LOADING ── */
-  .spinner{display:inline-block;width:20px;height:20px;border:3px solid var(--orange-soft);border-top-color:var(--orange-mid);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:8px}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .loading-slots{text-align:center;padding:30px;color:var(--text-light);font-size:.9rem}
+    .hero {
+      background: var(--cream);
+      padding: 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      text-align: center;
+      margin-bottom: 24px;
+    }
 
-  /* ── SETUP BANNER ── */
-  .setup-banner{background:#fff3cd;border:1.5px solid #ffc107;border-radius:10px;padding:14px 18px;margin:20px;font-size:.88rem;color:#856404;line-height:1.7}
-  .setup-banner strong{color:#533f03}
-  .setup-banner code{background:#fff;padding:2px 6px;border-radius:4px;font-family:monospace;font-size:.85em;border:1px solid #e0c060}
+    .hero h1 {
+      color: var(--orange-deep);
+      margin-bottom: 10px;
+    }
 
-  .hidden{display:none!important}
-  .text-center{text-align:center}
-  .alert{padding:12px 16px;border-radius:9px;font-size:.88rem;margin-bottom:14px}
-  .alert-success{background:#d4edda;color:#1a6630;border:1px solid #a8d5b5}
-  .alert-error{background:#fde8e7;color:#c0392b;border:1px solid #f5b8b5}
-</style>
+    .hero p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .card {
+      background: var(--cream);
+      padding: 24px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      color: var(--orange-deep);
+      margin-bottom: 14px;
+    }
+
+    .rules-box {
+      background: #fff7ee;
+      border: 2px solid var(--orange-soft);
+      padding: 18px;
+      border-radius: var(--radius);
+      line-height: 1.8;
+      font-weight: bold;
+    }
+
+    .rules-box ul {
+      padding-left: 22px;
+    }
+
+    label {
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    input {
+      width: 100%;
+      padding: 11px;
+      border-radius: 10px;
+      border: 1.5px solid var(--orange-soft);
+      margin-bottom: 14px;
+      font-size: 1rem;
+    }
+
+    .slots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .slot {
+      padding: 14px;
+      text-align: center;
+      border-radius: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      border: 2px solid var(--orange-soft);
+      background: white;
+    }
+
+    .slot.available {
+      color: var(--orange-deep);
+    }
+
+    .slot.booked {
+      background: #ffd4c5;
+      color: #8a2d1a;
+      cursor: not-allowed;
+      border-color: #f0a080;
+    }
+
+    .slot.past {
+      background: #eee;
+      color: #777;
+      cursor: not-allowed;
+      border-color: #ccc;
+    }
+
+    .legend {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      font-size: 0.9rem;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      z-index: 99;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .modal {
+      background: white;
+      border-radius: var(--radius);
+      padding: 24px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: var(--shadow);
+    }
+
+    .modal h3 {
+      color: var(--orange-deep);
+      margin-bottom: 12px;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .alert {
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .alert-error {
+      background: #ffe2dc;
+      color: #a03020;
+    }
+
+    .alert-success {
+      background: #e3f7df;
+      color: #2d7a2d;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+
+    th {
+      background: var(--orange-pale);
+      color: var(--orange-deep);
+    }
+
+    @media(max-width: 700px) {
+      nav {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .hero {
+        padding: 24px 18px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- ════════════════════ FIREBASE CONFIG BANNER (remove after setup) ════════ -->
-<div id="setupBanner" class="setup-banner hidden">
-  ⚠️ <strong>Firebase not connected yet.</strong> Open this file in a text editor, find the <code>firebaseConfig</code> section near the bottom, and replace the placeholder values with your Firebase project details. See the setup guide for instructions.
-</div>
+  <nav>
+    <div class="nav-title">Laurel Hall Wellness Room</div>
+    <button class="btn btn-primary" onclick="openStaffLogin()">Laurel Staff Login</button>
+  </nav>
 
-<!-- ═══════════════════════════════════════════ NAV ═══ -->
-<nav>
-  <div class="nav-brand">
-    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="20" cy="20" r="18" fill="rgba(255,255,255,.2)"/>
-      <path d="M20 10 C14 10 10 14 10 20 C10 26 14 30 20 30 C26 30 30 26 30 20 C30 14 26 10 20 10Z" fill="rgba(255,255,255,.3)"/>
-      <path d="M16 18 Q20 12 24 18 Q28 24 20 30 Q12 24 16 18Z" fill="rgba(255,255,255,.85)"/>
-    </svg>
-    <div class="nav-title">Laurel Hall <span>Wellness Room</span></div>
-  </div>
-  <div class="nav-actions">
-    <button class="btn btn-ghost" id="staffLoginBtn" onclick="openStaffLogin()">🔑 Laurel Staff Login</button>
-  </div>
-</nav>
+  <div class="container">
 
-<!-- ═══════════════════════════════════════════ MAIN VIEW ═══ -->
-<div id="residentView">
-  <div class="hero">
-    <h1>🌿 Wellness Room Booking</h1>
-    <p>Reserve a peaceful 30-minute session.<br>1–3 people permitted per slot.</p>
-    <div class="hours-badge">🕘 Open Daily · 9:00 AM – 4:00 PM · 30 min sessions</div>
-  </div>
+    <section class="hero">
+      <h1>Wellness Room Booking</h1>
+      <p>
+        Reserve a peaceful 30-minute session.<br>
+        <strong>Only 1 person permitted per slot.</strong>
+      </p>
+      <p style="margin-top:10px;">Open Daily · 9:00 AM – 4:00 PM · 30 min sessions</p>
+    </section>
 
-  <div class="main-wrap">
-    <!-- LEFT COLUMN -->
-    <div>
-      <!-- Rules -->
-      <div class="card" style="margin-bottom:22px">
-        <div class="card-header"><span style="font-size:1.3rem">📜</span><h2>Room Rules</h2></div>
-        <div class="card-body">
-          <div class="rules-box">
-            <strong>Please read before entering:</strong>
-            <ul>
-              <li>Only 1–3 people permitted per slot</li>
-              <li>Only people listed on the form may enter</li>
-              <li>Keep the room tidy – leave it as you found it</li>
-              <li>Abide strictly by your booked time slot</li>
-              <li>No outside food – small snacks &amp; drinks OK</li>
-              <li>Ask the OA if you have any questions</li>
-              <li>Present your NJIT ID when entering the room</li>
-            </ul>
-          </div>
-        </div>
+    <section class="card">
+      <h2>Room Rules</h2>
+      <p style="margin-bottom:12px;">Please read before entering:</p>
+
+      <div class="rules-box">
+        <p>1. Be respectful to the space and the items in it;</p>
+        <p>2. Clean up after yourself;</p>
+        <p>3. Do not take out any items from the Wellness Room, save for the coffee/tea you make;</p>
+        <p>4. Absolutely no inappropriate activities in the Wellness Room;</p>
+        <p>5. No extra time outside of the 30 minute booked slot, unless discussed prior.</p>
+        <br>
+        <p>Failure to abide by these rules will result in disciplinary actions with the Residence Life staff.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Check Availability</h2>
+
+      <label for="datePicker">Select Date</label>
+      <input type="date" id="datePicker" onchange="changeDate()" />
+
+      <div class="slots" id="slotsGrid">
+        Loading slots…
       </div>
 
-      <!-- Date + availability -->
-      <div class="card">
-        <div class="card-header">
-          <span style="font-size:1.3rem">📅</span>
-          <h2>Check Availability</h2>
-        </div>
-        <div class="card-body">
-          <div class="date-row">
-            <div class="field">
-              <label>Select Date</label>
-              <input type="date" id="datePickerInput" onchange="onDateChange()"/>
-            </div>
-          </div>
-          <div id="slotsGrid" class="slots-grid">
-            <div class="loading-slots"><span class="spinner"></span>Loading slots…</div>
-          </div>
-          <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:16px;font-size:.78rem">
-            <span><span style="display:inline-block;width:12px;height:12px;background:var(--orange-glow);border-radius:3px;border:1.5px solid var(--orange-soft);margin-right:4px"></span>Available</span>
-            <span><span style="display:inline-block;width:12px;height:12px;background:#ffd4c5;border-radius:3px;border:1.5px solid #f0a080;margin-right:4px"></span>Full (3/3)</span>
-            <span><span style="display:inline-block;width:12px;height:12px;background:#f0ece8;border-radius:3px;margin-right:4px"></span>Past</span>
-          </div>
-        </div>
+      <div class="legend">
+        <span>Available</span>
+        <span>Booked</span>
+        <span>Past</span>
       </div>
-    </div>
+    </section>
 
-    <!-- RIGHT COLUMN -->
-    <div>
-      <div class="card timer-card hidden" id="timerCard">
-        <div class="card-header"><span style="font-size:1.3rem">⏱️</span><h2>Session Timer</h2></div>
-        <div id="timerContent"></div>
-      </div>
-    </div>
-  </div>
-</div>
+    <section class="card hidden" id="staffDashboard">
+      <h2>Staff Dashboard</h2>
+      <p>Laurel Hall Wellness Room · All Registrations</p>
+      <br>
+      <button class="btn btn-danger" onclick="logoutStaff()">Log Out</button>
+      <button class="btn btn-danger" onclick="clearAllBookings()">Clear All</button>
 
-<!-- ═══════════════════════════════════════════ STAFF VIEW ═══ -->
-<div id="staffView" class="hidden">
-  <div style="background:linear-gradient(135deg,var(--orange-deep),var(--orange-mid));padding:20px 28px;display:flex;align-items:center;justify-content:space-between">
-    <div style="color:#fff">
-      <div style="font-size:1.3rem;font-weight:800">Staff Dashboard</div>
-      <div style="font-size:.85rem;opacity:.8">Laurel Hall Wellness Room · All Registrations</div>
-    </div>
-    <button class="btn btn-ghost" onclick="staffLogout()">🚪 Log Out</button>
-  </div>
-  <div class="staff-wrap">
-    <div class="stats-row" id="statsRow"></div>
-    <div class="card">
-      <div class="card-header">
-        <span style="font-size:1.3rem">🗂️</span>
-        <h2>All Bookings</h2>
-        <div style="margin-left:auto;display:flex;gap:10px;align-items:center">
-          <input type="date" id="staffDateFilter" onchange="renderStaffTable()" style="padding:7px 10px;font-size:.83rem;border-radius:8px;border:1.5px solid var(--orange-soft)"/>
-          <button class="btn btn-danger" style="padding:7px 14px;font-size:.82rem" onclick="clearAllBookings()">🗑 Clear All</button>
-        </div>
-      </div>
-      <div class="card-body" style="padding:0;overflow-x:auto">
-        <table class="staff-table">
-          <thead>
-            <tr><th>Date</th><th>Time Slot</th><th>Name</th><th>NJIT ID</th><th>Room #</th><th>Phone</th><th>Guests</th><th>Status</th><th>Action</th></tr>
-          </thead>
-          <tbody id="staffTableBody"><tr><td colspan="9" style="text-align:center;padding:24px"><span class="spinner"></span>Loading…</td></tr></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time Slot</th>
+            <th>Name</th>
+            <th>NJIT ID</th>
+            <th>Room #</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="staffTableBody">
+          <tr><td colspan="8">Loading…</td></tr>
+        </tbody>
+      </table>
+    </section>
 
-<!-- ═══ BOOKING MODAL ═══ -->
-<div class="modal-overlay hidden" id="bookingModal">
-  <div class="modal">
-    <div class="modal-header">
-      <h3>📝 Reserve Your Slot</h3>
-      <button class="modal-close" onclick="closeBookingModal()">×</button>
-    </div>
-    <div class="modal-body">
+  </div>
+
+  <div class="modal-overlay hidden" id="bookingModal">
+    <div class="modal">
+      <h3>Reserve Your Slot</h3>
+      <p id="slotSummary" style="margin-bottom:14px;"></p>
+
       <div id="bookingAlert"></div>
-      <div id="slotSummary" style="background:var(--orange-glow);border-radius:9px;padding:12px 16px;margin-bottom:18px;font-size:.9rem;color:var(--text-mid)"></div>
-      <div class="form-grid">
-        <div class="field full"><label>Full Name *</label><input type="text" id="f_name" placeholder="First Last"/></div>
-        <div class="field"><label>NJIT ID # *</label><input type="text" id="f_njitid" placeholder="e.g. 31234567"/></div>
-        <div class="field"><label>Room Number *</label><input type="text" id="f_room" placeholder="e.g. 204"/></div>
-        <div class="field full"><label>Phone Number *</label><input type="tel" id="f_phone" placeholder="(201) 555-0000"/></div>
-        <div class="field full">
-          <label>Number of Guests (including yourself)</label>
-          <select id="f_guests">
-            <option value="1">1 person (just me)</option>
-            <option value="2">2 people</option>
-            <option value="3">3 people</option>
-          </select>
-        </div>
-        <div class="full">
-          <div class="rules-box" style="font-size:.8rem">
-            <strong>By booking, you agree to:</strong> keep the room tidy, leave on time, present NJIT ID at entry, no outside food. Only listed guests may enter.
-          </div>
-        </div>
+
+      <label>Full Name *</label>
+      <input type="text" id="f_name" />
+
+      <label>NJIT ID # *</label>
+      <input type="text" id="f_njitid" />
+
+      <label>Room Number *</label>
+      <input type="text" id="f_room" />
+
+      <label>Phone Number *</label>
+      <input type="tel" id="f_phone" />
+
+      <input type="hidden" id="f_guests" value="1" />
+
+      <div class="rules-box" style="font-size:0.85rem;">
+        By booking, you agree to keep the room tidy, leave on time, present your NJIT ID at entry, and follow all room rules.
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn" onclick="closeBookingModal()">Cancel</button>
+        <button class="btn btn-orange" id="submitBtn" onclick="submitBooking()">✅ Confirm Booking</button>
       </div>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" style="color:var(--text-mid);border-color:var(--orange-soft)" onclick="closeBookingModal()">Cancel</button>
-      <button class="btn btn-orange" id="submitBtn" onclick="submitBooking()">✅ Confirm Booking</button>
-    </div>
   </div>
-</div>
 
-<!-- ═══ STAFF LOGIN MODAL ═══ -->
-<div class="modal-overlay hidden" id="staffLoginModal">
-  <div class="modal" style="max-width:380px">
-    <div class="modal-header">
-      <h3>🔑 Laurel Staff Login</h3>
-      <button class="modal-close" onclick="closeStaffLogin()">×</button>
-    </div>
-    <div class="modal-body">
+  <div class="modal-overlay hidden" id="staffLoginModal">
+    <div class="modal">
+      <h3>Laurel Staff Login</h3>
+
       <div id="loginAlert"></div>
-      <div class="field" style="margin-bottom:14px">
-        <label>Email</label>
-        <input type="email" id="staffUser" placeholder="staff@email.com" autocomplete="username"/>
+
+      <label>Email</label>
+      <input type="email" id="staffEmail" />
+
+      <label>Password</label>
+      <input type="password" id="staffPassword" />
+
+      <div class="modal-footer">
+        <button class="btn" onclick="closeStaffLogin()">Cancel</button>
+        <button class="btn btn-orange" onclick="staffLogin()">Login →</button>
       </div>
-      <div class="field">
-        <label>Password</label>
-        <input type="password" id="staffPass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" style="color:var(--text-mid);border-color:var(--orange-soft)" onclick="closeStaffLogin()">Cancel</button>
-      <button class="btn btn-orange" onclick="doLogin()">Login →</button>
     </div>
   </div>
-</div>
 
-<!-- ═══ SUCCESS MODAL ═══ -->
-<div class="modal-overlay hidden" id="successModal">
-  <div class="modal" style="max-width:400px">
-    <div class="modal-header" style="background:linear-gradient(135deg,#2e7d32,#43a047)">
-      <h3>🎉 Booking Confirmed!</h3>
-      <button class="modal-close" onclick="closeSuccess()">×</button>
-    </div>
-    <div class="modal-body text-center">
-      <div style="font-size:3rem;margin-bottom:12px">🌿</div>
-      <div id="successMsg" style="font-size:.95rem;color:var(--text-mid);line-height:1.7"></div>
-      <div style="margin-top:16px;font-size:.82rem;color:var(--text-light)">Remember to present your NJIT ID when you arrive. The OA will let you in.</div>
-    </div>
-    <div class="modal-footer" style="justify-content:center">
-      <button class="btn btn-orange" onclick="closeSuccess()">Got it!</button>
+  <div class="modal-overlay hidden" id="successModal">
+    <div class="modal">
+      <h3>Booking Confirmed!</h3>
+      <p id="successMsg"></p>
+      <br>
+      <p>Remember to present your NJIT ID when you arrive. The OA will let you in.</p>
+
+      <div class="modal-footer">
+        <button class="btn btn-orange" onclick="closeSuccess()">Got it!</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- ═══════════════════════════════════════════ FIREBASE SDK ═══ -->
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
 
-<script>
-// ══════════════════════════════════════════════════════
-//  🔥 FIREBASE CONFIG — Replace with your project values
-//  (Get these from Firebase Console → Project Settings)
-// ══════════════════════════════════════════════════════
-const firebaseConfig = {
-  apiKey:            "AIzaSyD-v6r4fVmeLRd09ag9BLaRhwHnWM7CKnk",
-  authDomain:        "wellness-room-booking.firebaseapp.com",
-  projectId:         "wellness-room-booking",
-  storageBucket:     "wellness-room-booking.firebasestorage.app",
-  messagingSenderId: "810949185988",
-  appId:             "1:810949185988:web:c596cf693ce9292c4b9491"
-};
-// ══════════════════════════════════════════════════════
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD-v6r4fVmeLRd09ag9BLaRhwHnWM7CKnk",
+      authDomain: "wellness-room-booking.firebaseapp.com",
+      projectId: "wellness-room-booking",
+      storageBucket: "wellness-room-booking.firebasestorage.app",
+      messagingSenderId: "810949185988",
+      appId: "1:810949185988:web:c596cf693ce9292c4b9491"
+    };
 
-// Detect if config has been filled in
-const isConfigured = !Object.values(firebaseConfig).some(v => v.startsWith('PASTE_'));
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-let db = null;
-if (isConfigured) {
-  firebase.initializeApp(firebaseConfig);
-  db = firebase.firestore();
-} else {
-  document.getElementById('setupBanner').classList.remove('hidden');
-}
+    const STAFF_EMAIL = "laurelhall06@gmail.com";
+    const STAFF_PASSWORD = "LaurelWellness@2026";
 
-// ═══════════════════ STAFF CREDENTIALS ═══════════════════
-const STAFF_CREDENTIALS = [
-  { username: 'laurelhall06@gmail.com', password: 'LaurelWellness@2026', role: 'Staff' }
-];
+    const TIME_SLOTS = [];
+    for (let h = 9; h <= 15; h++) {
+      TIME_SLOTS.push(`${h}:00`);
+      if (h < 15) TIME_SLOTS.push(`${h}:30`);
+    }
 
-// ═══════════════════ TIME SLOTS ═══════════════════
-const TIME_SLOTS = [];
-for (let h = 9; h <= 15; h++) {
-  TIME_SLOTS.push(`${h}:00`);
-  if (h < 15) TIME_SLOTS.push(`${h}:30`);
-}
-// Result: 9:00 9:30 10:00 ... 14:30 15:00 (last slot ends 15:30 = 3:30pm)
+    let selectedDate = todayISO();
+    let selectedSlot = "";
+    let allBookings = [];
 
-function fmt12(t) {
-  let [h, m] = t.split(':').map(Number);
-  return `${h % 12 || 12}:${String(m).padStart(2,'0')} ${h < 12 ? 'AM' : 'PM'}`;
-}
-function slotEnd(t) {
-  let [h, m] = t.split(':').map(Number);
-  m += 30; if (m >= 60) { m -= 60; h++; }
-  return `${h}:${String(m).padStart(2,'0')}`;
-}
-function formatDate(iso) {
-  const [y,mo,d] = iso.split('-');
-  return `${'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ')[+mo-1]} ${+d}, ${y}`;
-}
-function todayISO() {
-  return new Date().toISOString().split('T')[0];
-}
+    document.getElementById("datePicker").value = selectedDate;
+    listenBookings();
 
-// ═══════════════════ STATE ═══════════════════
-let selectedDate  = todayISO();
-let selectedSlot  = '';
-let allBookings   = [];        // live cache from Firestore
-let unsubscribe   = null;      // Firestore listener handle
-let timerInterval = null;
+    function todayISO() {
+      return new Date().toISOString().split("T")[0];
+    }
 
-// ═══════════════════ INIT ═══════════════════
-window.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('datePickerInput').value = selectedDate;
-  document.getElementById('staffDateFilter').value = selectedDate;
+    function fmt12(t) {
+      let [h, m] = t.split(":").map(Number);
+      return `${h % 12 || 12}:${String(m).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`;
+    }
 
-  if (!isConfigured) {
-    renderSlotsFromCache();
-    return;
-  }
-  startFirestoreListener();
-  setInterval(updateTimer, 1000);
-});
-
-// ═══════════════════ FIRESTORE REAL-TIME LISTENER ═══════════════════
-function startFirestoreListener() {
-  if (unsubscribe) unsubscribe();
-  unsubscribe = db.collection('bookings')
-    .onSnapshot(snapshot => {
-      allBookings = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      renderSlotsFromCache();
-      updateTimer();
-      if (document.getElementById('staffView').classList.contains('hidden') === false) {
-        renderStaffTable();
+    function slotEnd(t) {
+      let [h, m] = t.split(":").map(Number);
+      m += 30;
+      if (m >= 60) {
+        m -= 60;
+        h++;
       }
-    }, err => {
-      console.error('Firestore error:', err);
-      document.getElementById('slotsGrid').innerHTML =
-        '<div class="loading-slots" style="color:#c0392b">⚠️ Could not connect to database. Check your Firebase config.</div>';
-    });
-}
+      return `${h}:${String(m).padStart(2, "0")}`;
+    }
 
-// ═══════════════════ SLOTS ═══════════════════
-function onDateChange() {
-  selectedDate = document.getElementById('datePickerInput').value;
-  renderSlotsFromCache();
-  updateTimer();
-}
+    function formatDate(iso) {
+      const [y, mo, d] = iso.split("-");
+      const months = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
+      return `${months[Number(mo) - 1]} ${Number(d)}, ${y}`;
+    }
 
-function renderSlotsFromCache() {
-  const d = selectedDate;
-  const now = new Date();
-  const grid = document.getElementById('slotsGrid');
-  grid.innerHTML = '';
+    function bookingDocId(date, slot) {
+      return `${date}_${slot.replace(":", "-")}`;
+    }
 
-  TIME_SLOTS.forEach(slot => {
-    const slotBookings = allBookings.filter(b => b.date === d && b.slot === slot);
-    const totalGuests  = slotBookings.reduce((s, b) => s + (b.guests || 1), 0);
-    const spotsLeft    = 3 - totalGuests;
+    function listenBookings() {
+      db.collection("bookings").onSnapshot(snapshot => {
+        allBookings = [];
+        snapshot.forEach(doc => {
+          allBookings.push({ id: doc.id, ...doc.data() });
+        });
 
-    const [sh, sm] = slot.split(':').map(Number);
-    const slotDate = new Date(`${d}T${String(sh).padStart(2,'0')}:${String(sm).padStart(2,'0')}:00`);
-    const isPast   = slotDate < now;
+        renderSlots();
+        renderStaffTable();
+      });
+    }
 
-    const div = document.createElement('div');
-    div.className = 'slot';
+    function changeDate() {
+      selectedDate = document.getElementById("datePicker").value;
+      renderSlots();
+    }
 
-    if (isPast)          div.classList.add('past');
-    else if (spotsLeft <= 0) div.classList.add('full');
-    else { div.classList.add('available'); div.onclick = () => openBookingModal(slot); }
+    function renderSlots() {
+      const grid = document.getElementById("slotsGrid");
+      grid.innerHTML = "";
 
-    div.innerHTML = `<div style="font-weight:700">${fmt12(slot)}</div>
-      <div class="slot-time">– ${fmt12(slotEnd(slot))}</div>
-      <div class="slot-count">${isPast ? 'Past' : spotsLeft <= 0 ? 'Full' : spotsLeft + ' spot' + (spotsLeft===1?'':'s') + ' left'}</div>`;
-    grid.appendChild(div);
-  });
-}
+      const now = new Date();
 
-// ═══════════════════ BOOKING MODAL ═══════════════════
-function openBookingModal(slot) {
-  selectedSlot = slot;
-  document.getElementById('slotSummary').innerHTML =
-    `📅 <strong>${formatDate(selectedDate)}</strong> &nbsp;|&nbsp; 🕐 <strong>${fmt12(slot)} – ${fmt12(slotEnd(slot))}</strong>`;
-  document.getElementById('bookingAlert').innerHTML = '';
-  ['f_name','f_njitid','f_room','f_phone'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('f_guests').value = '1';
-  document.getElementById('bookingModal').classList.remove('hidden');
-}
-function closeBookingModal() { document.getElementById('bookingModal').classList.add('hidden'); }
+      TIME_SLOTS.forEach(slot => {
+        const existing = allBookings.filter(b => b.date === selectedDate && b.slot === slot);
+        const isBooked = existing.length > 0;
 
-async function submitBooking() {
-  if (!isConfigured) { showAlert('bookingAlert','Firebase not configured yet.','error'); return; }
+        const [sh, sm] = slot.split(":").map(Number);
+        const slotDate = new Date(`${selectedDate}T${String(sh).padStart(2, "0")}:${String(sm).padStart(2, "0")}:00`);
+        const isPast = slotDate < now;
 
-  const name   = document.getElementById('f_name').value.trim();
-  const njitid = document.getElementById('f_njitid').value.trim();
-  const room   = document.getElementById('f_room').value.trim();
-  const phone  = document.getElementById('f_phone').value.trim();
-  const guests = parseInt(document.getElementById('f_guests').value);
+        const div = document.createElement("div");
+        div.className = "slot";
 
-  if (!name || !njitid || !room || !phone) {
-    showAlert('bookingAlert','Please fill in all required fields.','error'); return;
-  }
-  if (!/^\d{5,9}$/.test(njitid.replace(/\D/g,''))) {
-    showAlert('bookingAlert','Please enter a valid NJIT ID number.','error'); return;
-  }
+        if (isPast) {
+          div.classList.add("past");
+          div.innerHTML = `${fmt12(slot)}<br>Past`;
+        } else if (isBooked) {
+          div.classList.add("booked");
+          div.innerHTML = `${fmt12(slot)}<br>Booked`;
+        } else {
+          div.classList.add("available");
+          div.innerHTML = `${fmt12(slot)}<br>Available`;
+          div.onclick = () => openBookingModal(slot);
+        }
 
-  // Re-check capacity against live cache
-  const existing    = allBookings.filter(b => b.date === selectedDate && b.slot === selectedSlot);
-  const totalGuests = existing.reduce((s, b) => s + (b.guests || 1), 0);
-  if (totalGuests + guests > 3) {
-    showAlert('bookingAlert',`Only ${3 - totalGuests} spot(s) left in this slot.`,'error'); return;
-  }
+        grid.appendChild(div);
+      });
+    }
 
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span>Booking…';
+    function openBookingModal(slot) {
+      selectedSlot = slot;
+      document.getElementById("slotSummary").innerHTML =
+        `<strong>${formatDate(selectedDate)}</strong> | <strong>${fmt12(slot)} – ${fmt12(slotEnd(slot))}</strong>`;
 
-  try {
-    await db.collection('bookings').add({
-      date: selectedDate, slot: selectedSlot,
-      name, njitid, room, phone, guests,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
-    closeBookingModal();
-    document.getElementById('successMsg').innerHTML =
-      `<strong>${name}</strong>, you're booked for<br>
-       <span style="color:var(--orange-deep);font-weight:700">${fmt12(selectedSlot)} – ${fmt12(slotEnd(selectedSlot))}</span><br>
-       on <strong>${formatDate(selectedDate)}</strong>.<br><br>
-       Please arrive on time and have your NJIT ID ready.`;
-    document.getElementById('successModal').classList.remove('hidden');
-  } catch(e) {
-    showAlert('bookingAlert','Could not save booking. Please try again.','error');
-    console.error(e);
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = '✅ Confirm Booking';
-  }
-}
-function closeSuccess() { document.getElementById('successModal').classList.add('hidden'); }
+      document.getElementById("bookingAlert").innerHTML = "";
+      document.getElementById("f_name").value = "";
+      document.getElementById("f_njitid").value = "";
+      document.getElementById("f_room").value = "";
+      document.getElementById("f_phone").value = "";
+      document.getElementById("f_guests").value = "1";
 
-// ═══════════════════ TIMER ═══════════════════
-function updateTimer() {
-  const now      = new Date();
-  const iso      = todayISO();
-  const bookings = allBookings.filter(b => b.date === iso);
+      document.getElementById("bookingModal").classList.remove("hidden");
+    }
 
-  // Find active session
-  let active = null;
-  for (const b of bookings) {
-    const [sh, sm] = b.slot.split(':').map(Number);
-    const start = new Date(`${iso}T${String(sh).padStart(2,'0')}:${String(sm).padStart(2,'0')}:00`);
-    const end   = new Date(start.getTime() + 30 * 60000);
-    if (now >= start && now < end) { active = { b, start, end }; break; }
-  }
+    function closeBookingModal() {
+      document.getElementById("bookingModal").classList.add("hidden");
+    }
 
-  if (active) {
-    document.getElementById('timerCard').classList.remove('hidden');
-    tickTimer(active);
-    return;
-  }
+    async function submitBooking() {
+      const name = document.getElementById("f_name").value.trim();
+      const njitid = document.getElementById("f_njitid").value.trim();
+      const room = document.getElementById("f_room").value.trim();
+      const phone = document.getElementById("f_phone").value.trim();
+      const guests = 1;
 
-  // Find next upcoming booking today
-  const sorted = [...bookings].sort((a,b) => a.slot.localeCompare(b.slot));
-  let next = null;
-  for (const b of sorted) {
-    const [sh, sm] = b.slot.split(':').map(Number);
-    const start = new Date(`${iso}T${String(sh).padStart(2,'0')}:${String(sm).padStart(2,'0')}:00`);
-    if (start > now) { next = { b, start }; break; }
-  }
+      if (!name || !njitid || !room || !phone) {
+        showAlert("bookingAlert", "Please fill in all required fields.", "error");
+        return;
+      }
 
-  if (next) {
-    document.getElementById('timerCard').classList.remove('hidden');
-    const diffMs  = next.start - now;
-    const diffMin = Math.floor(diffMs / 60000);
-    const diffSec = Math.floor((diffMs % 60000) / 1000);
-    document.getElementById('timerContent').innerHTML = `
-      <div class="timer-display">
-        <div style="font-size:2rem;margin-bottom:8px">🔜</div>
-        <div class="timer-info">Your session starts in</div>
-        <div class="timer-min" style="font-size:2.4rem">${diffMin > 0 ? diffMin + ' min' : diffSec + 's'}</div>
-        <div class="timer-info" style="margin-top:12px"><strong>${next.b.name}</strong></div>
-        <div style="font-size:.8rem;color:var(--text-light)">${fmt12(next.b.slot)} – ${fmt12(slotEnd(next.b.slot))}</div>
-      </div>`;
-  } else {
-    document.getElementById('timerCard').classList.add('hidden');
-  }
-}
+      if (!/^\d{5,9}$/.test(njitid.replace(/\D/g, ""))) {
+        showAlert("bookingAlert", "Please enter a valid NJIT ID number.", "error");
+        return;
+      }
 
-function tickTimer(active) {
-  const now       = new Date();
-  const remaining = Math.max(0, active.end - now);
-  const totalMs   = 30 * 60000;
-  const fraction  = remaining / totalMs;
-  const remMin    = Math.floor(remaining / 60000);
-  const remSec    = Math.floor((remaining % 60000) / 1000);
-  const circ      = 2 * Math.PI * 64;
-  const offset    = circ * (1 - fraction);
-  const color     = remaining < 300000 ? '#e74c3c' : 'var(--orange-mid)';
+      const docId = bookingDocId(selectedDate, selectedSlot);
+      const bookingRef = db.collection("bookings").doc(docId);
 
-  document.getElementById('timerContent').innerHTML = `
-    <div class="timer-display">
-      <div class="timer-ring">
-        <svg width="160" height="160" viewBox="0 0 160 160">
-          <circle cx="80" cy="80" r="64" stroke="var(--orange-soft)" stroke-width="12" fill="none"/>
-          <circle cx="80" cy="80" r="64" stroke="${color}" stroke-width="12" fill="none"
-            stroke-dasharray="${circ}" stroke-dashoffset="${offset}" stroke-linecap="round"
-            style="transform:rotate(-90deg);transform-origin:80px 80px;transition:stroke-dashoffset .9s linear"/>
-        </svg>
-        <div class="timer-text">
-          <div class="timer-min" style="color:${color}">${String(remMin).padStart(2,'0')}:${String(remSec).padStart(2,'0')}</div>
-          <div class="timer-label">remaining</div>
-        </div>
-      </div>
-      <div class="timer-info"><strong>${active.b.name}</strong></div>
-      <div class="timer-info" style="font-size:.82rem">${fmt12(active.b.slot)} – ${fmt12(slotEnd(active.b.slot))}</div>
-      ${remaining < 300000 ? '<div style="color:#e74c3c;font-weight:700;font-size:.85rem;margin-top:8px">⚠️ Please wrap up soon!</div>' : ''}
-      ${remaining === 0    ? '<div style="color:#e74c3c;font-weight:800;font-size:.95rem;margin-top:10px">🔔 Session has ended!</div>' : ''}
-    </div>`;
-}
+      const btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.innerHTML = "Booking…";
 
-// ═══════════════════ STAFF ═══════════════════
-function openStaffLogin() {
-  document.getElementById('staffLoginModal').classList.remove('hidden');
-  document.getElementById('loginAlert').innerHTML = '';
-  document.getElementById('staffUser').value = '';
-  document.getElementById('staffPass').value = '';
-}
-function closeStaffLogin() { document.getElementById('staffLoginModal').classList.add('hidden'); }
+      try {
+        await db.runTransaction(async transaction => {
+          const doc = await transaction.get(bookingRef);
 
-function doLogin() {
-  const u     = document.getElementById('staffUser').value.trim();
-  const p     = document.getElementById('staffPass').value;
-  const match = STAFF_CREDENTIALS.find(c => c.username === u && c.password === p);
-  if (match) {
-    closeStaffLogin();
-    document.getElementById('residentView').classList.add('hidden');
-    document.getElementById('staffView').classList.remove('hidden');
-    document.getElementById('staffLoginBtn').style.display = 'none';
-    renderStaffTable();
-  } else {
-    showAlert('loginAlert','Incorrect email or password.','error');
-  }
-}
-function staffLogout() {
-  document.getElementById('staffView').classList.add('hidden');
-  document.getElementById('residentView').classList.remove('hidden');
-  document.getElementById('staffLoginBtn').style.display = '';
-}
+          if (doc.exists) {
+            throw new Error("BOOKED");
+          }
 
-function renderStaffTable() {
-  const filterDate = document.getElementById('staffDateFilter').value;
-  let bookings = filterDate ? allBookings.filter(b => b.date === filterDate) : [...allBookings];
-  bookings.sort((a,b) => a.date.localeCompare(b.date) || a.slot.localeCompare(b.slot));
+          transaction.set(bookingRef, {
+            date: selectedDate,
+            slot: selectedSlot,
+            name,
+            njitid,
+            room,
+            phone,
+            guests,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+        });
 
-  const now     = new Date();
-  const iso     = todayISO();
-  const todayB  = allBookings.filter(b => b.date === iso);
-  const activeN = todayB.filter(b => {
-    const [sh,sm] = b.slot.split(':').map(Number);
-    const start = new Date(`${iso}T${String(sh).padStart(2,'0')}:${String(sm).padStart(2,'0')}:00`);
-    const end   = new Date(start.getTime() + 30*60000);
-    return now >= start && now < end;
-  });
+        closeBookingModal();
 
-  document.getElementById('statsRow').innerHTML = `
-    <div class="stat-box"><div class="stat-num">${allBookings.length}</div><div class="stat-lbl">Total Bookings</div></div>
-    <div class="stat-box"><div class="stat-num">${todayB.length}</div><div class="stat-lbl">Today's Bookings</div></div>
-    <div class="stat-box"><div class="stat-num">${activeN.length}</div><div class="stat-lbl">Active Now</div></div>`;
+        document.getElementById("successMsg").innerHTML =
+          `<strong>${name}</strong>, you're booked for<br>
+          <strong>${fmt12(selectedSlot)} – ${fmt12(slotEnd(selectedSlot))}</strong><br>
+          on <strong>${formatDate(selectedDate)}</strong>.`;
 
-  const tbody = document.getElementById('staffTableBody');
-  if (!bookings.length) {
-    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--text-light);padding:24px">No bookings found.</td></tr>';
-    return;
-  }
-  tbody.innerHTML = bookings.map(b => {
-    const [sh,sm] = b.slot.split(':').map(Number);
-    const start   = new Date(`${b.date}T${String(sh).padStart(2,'0')}:${String(sm).padStart(2,'0')}:00`);
-    const end     = new Date(start.getTime() + 30*60000);
-    let status, badgeClass;
-    if (now >= start && now < end)  { status='Active';   badgeClass='badge-active'; }
-    else if (start > now)           { status='Upcoming'; badgeClass='badge-upcoming'; }
-    else                            { status='Done';     badgeClass='badge-done'; }
-    return `<tr>
-      <td>${formatDate(b.date)}</td>
-      <td>${fmt12(b.slot)} – ${fmt12(slotEnd(b.slot))}</td>
-      <td><strong>${b.name}</strong></td>
-      <td>${b.njitid}</td>
-      <td>${b.room}</td>
-      <td>${b.phone}</td>
-      <td>${b.guests}</td>
-      <td><span class="badge ${badgeClass}">${status}</span></td>
-      <td><button class="btn btn-danger" style="padding:4px 10px;font-size:.75rem;border-radius:6px" onclick="deleteBooking('${b.id}')">Remove</button></td>
-    </tr>`;
-  }).join('');
-}
+        document.getElementById("successModal").classList.remove("hidden");
 
-async function deleteBooking(id) {
-  if (!confirm('Remove this booking?')) return;
-  try { await db.collection('bookings').doc(id).delete(); }
-  catch(e) { alert('Error removing booking.'); console.error(e); }
-}
+      } catch (e) {
+        if (e.message === "BOOKED") {
+          showAlert("bookingAlert", "This time slot is already booked. Please choose another slot.", "error");
+        } else {
+          showAlert("bookingAlert", "Could not save booking. Please try again.", "error");
+          console.error(e);
+        }
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = "✅ Confirm Booking";
+      }
+    }
 
-async function clearAllBookings() {
-  if (!confirm('Clear ALL bookings? This cannot be undone.')) return;
-  const batch = db.batch();
-  allBookings.forEach(b => batch.delete(db.collection('bookings').doc(b.id)));
-  try { await batch.commit(); }
-  catch(e) { alert('Error clearing bookings.'); console.error(e); }
-}
+    function closeSuccess() {
+      document.getElementById("successModal").classList.add("hidden");
+    }
 
-// ═══════════════════ UTILS ═══════════════════
-function showAlert(id, msg, type) {
-  document.getElementById(id).innerHTML = `<div class="alert alert-${type}">${msg}</div>`;
-}
-</script>
+    function showAlert(id, msg, type) {
+      document.getElementById(id).innerHTML =
+        `<div class="alert alert-${type}">${msg}</div>`;
+    }
+
+    function openStaffLogin() {
+      document.getElementById("staffLoginModal").classList.remove("hidden");
+    }
+
+    function closeStaffLogin() {
+      document.getElementById("staffLoginModal").classList.add("hidden");
+    }
+
+    function staffLogin() {
+      const email = document.getElementById("staffEmail").value.trim();
+      const password = document.getElementById("staffPassword").value.trim();
+
+      if (email === STAFF_EMAIL && password === STAFF_PASSWORD) {
+        closeStaffLogin();
+        document.getElementById("staffDashboard").classList.remove("hidden");
+        renderStaffTable();
+      } else {
+        showAlert("loginAlert", "Invalid staff login.", "error");
+      }
+    }
+
+    function logoutStaff() {
+      document.getElementById("staffDashboard").classList.add("hidden");
+    }
+
+    function renderStaffTable() {
+      const body = document.getElementById("staffTableBody");
+      if (!body) return;
+
+      if (allBookings.length === 0) {
+        body.innerHTML = `<tr><td colspan="8">No bookings yet.</td></tr>`;
+        return;
+      }
+
+      const sorted = [...allBookings].sort((a, b) => {
+        return `${a.date} ${a.slot}`.localeCompare(`${b.date} ${b.slot}`);
+      });
+
+      body.innerHTML = sorted.map(b => {
+        return `
+          <tr>
+            <td>${formatDate(b.date)}</td>
+            <td>${fmt12(b.slot)} – ${fmt12(slotEnd(b.slot))}</td>
+            <td><strong>${b.name}</strong></td>
+            <td>${b.njitid}</td>
+            <td>${b.room}</td>
+            <td>${b.phone}</td>
+            <td>Booked</td>
+            <td><button class="btn btn-danger" onclick="deleteBooking('${b.id}')">Delete</button></td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    async function deleteBooking(id) {
+      if (!confirm("Delete this booking?")) return;
+      await db.collection("bookings").doc(id).delete();
+    }
+
+    async function clearAllBookings() {
+      if (!confirm("Clear all bookings?")) return;
+
+      const snapshot = await db.collection("bookings").get();
+      const batch = db.batch();
+
+      snapshot.forEach(doc => {
+        batch.delete(doc.ref);
+      });
+
+      await batch.commit();
+    }
+  </script>
+
 </body>
 </html>
