@@ -340,11 +340,11 @@
   <div class="container">
     <div>
       <h1>Wellness Room Booking</h1>
-      <p>Reserve your 30-minute wellness session, Monday &ndash; Friday, 9:00 AM &ndash; 4:00 PM</p>
+      <p>Reserve a peaceful 30-minute Wellness Room session, open daily from 9:00 AM &ndash; 4:00 PM</p>
     </div>
     <div class="header-actions">
       <button class="header-btn" id="navStudent">Booking</button>
-      <button class="header-btn" id="navMyBookings">My Booking</button>
+      <button class="header-btn" id="navMyBookings">Check My Booking</button>
       <button class="header-btn" id="navStaff">Staff Login</button>
     </div>
   </div>
@@ -385,10 +385,11 @@
   </div>
 </div>
 
+
 <div class="container view hidden" id="myBookingsView">
   <div class="card">
-    <h2><span class="icon">&#128270;</span> Find My Booking</h2>
-    <p style="color:var(--gray-500); margin-top:0;">Enter your NJIT ID to view and cancel your bookings.</p>
+    <h2><span class="icon">&#128270;</span> Check Your Booking</h2>
+    <p style="color:var(--gray-500); margin-top:0;">Enter your 8-digit NJIT ID to view and cancel your own booking.</p>
     <div class="filters">
       <input type="text" id="lookupNjit" placeholder="8-digit NJIT ID" maxlength="8" inputmode="numeric" />
       <button class="btn-primary" style="flex:0 0 auto;" id="lookupBtn">Look Up</button>
@@ -468,10 +469,6 @@
         <label for="loginPass">Password</label>
         <input type="password" id="loginPass" required autocomplete="current-password" />
       </div>
-      <div style="background:var(--orange-50); padding:10px 12px; border-radius:8px; font-size:12px; color:var(--orange-800); margin-bottom:8px;">
-        <strong>Demo credentials:</strong><br>
-        Username: <code>staff</code> &nbsp; Password: <code>wellness2026</code>
-      </div>
       <div class="button-row">
         <button type="button" class="btn-secondary" id="loginCancelBtn">Cancel</button>
         <button type="submit" class="btn-primary">Log In</button>
@@ -513,7 +510,7 @@
   var START_HOUR = 9, END_HOUR = 16, SLOT_MINUTES = 30;
   var STORAGE_KEY = 'wellnessBookings_v3';
   var SESSION_KEY = 'wellnessStaffSession';
-  var STAFF_CREDS = { user: 'staff', pass: 'wellness2026' };
+  var STAFF_CREDS = { user: 'laurelhall06@gmail.com', pass: 'LaurelWellness@2026' };
 
   var bookings = loadBookings();
   var weekOffset = 0;
@@ -678,6 +675,7 @@
   document.getElementById('nextWeek').addEventListener('click', function() { weekOffset += 1; renderSchedule(); });
   document.getElementById('njitInput').addEventListener('input', function(e) { e.target.value = e.target.value.replace(/\D/g,'').slice(0,8); });
 
+
   document.getElementById('lookupNjit').addEventListener('input', function(e) { e.target.value = e.target.value.replace(/\D/g,'').slice(0,8); });
   document.getElementById('lookupBtn').addEventListener('click', function() {
     var v = document.getElementById('lookupNjit').value.trim();
@@ -713,7 +711,7 @@
           if (!confirm('Cancel this booking? This cannot be undone.')) return;
           var b = bookings.find(function(x) { return x.id === id; }); if (!b) return;
           b.status = 'Cancelled'; b.cancelledAt = new Date().toISOString(); b.cancelledBy = 'student';
-          saveBookings(); toast('Booking cancelled.'); renderMyBookings();
+          saveBookings(); toast('Booking cancelled.'); renderMyBookings(); renderSchedule();
         });
       })(cancelBtns[i]);
     }
