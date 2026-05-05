@@ -1,241 +1,147 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Laurel Hall Wellness Room</title>
+<div id="residentContent">
 
-  <style>
-    :root {
-      --orange-deep: #c2560a;
-      --orange-mid: #e07830;
-      --orange-soft: #fcd5a8;
-      --orange-pale: #fff4ea;
-      --cream: #fffdf8;
-      --text-dark: #3a1f00;
-      --shadow: 0 4px 20px rgba(194, 86, 10, 0.15);
-      --radius: 14px;
-    }
+  <section class="hero">
+    <h1>Wellness Room Booking</h1>
+    <p>
+      Reserve a peaceful 30-minute session.<br>
+      <strong>Only 1 person permitted per slot.</strong>
+    </p>
+    <p style="margin-top:10px;">Open Daily · 9:00 AM – 4:00 PM · 30 min sessions</p>
+  </section>
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+  <section class="card">
+    <h2>Room Rules</h2>
+    <p style="margin-bottom:12px;">Please read before entering:</p>
 
-    body {
-      font-family: "Segoe UI", system-ui, sans-serif;
-      background: var(--orange-pale);
-      color: var(--text-dark);
-      min-height: 100vh;
-    }
-
-    nav {
-      background: linear-gradient(135deg, var(--orange-deep), var(--orange-mid));
-      color: white;
-      padding: 18px 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: var(--shadow);
-    }
-
-    .nav-title { font-size: 1.3rem; font-weight: 800; }
-
-    .btn {
-      padding: 10px 18px;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: 700;
-      margin: 3px;
-    }
-
-    .btn-primary { background: white; color: var(--orange-deep); }
-    .btn-orange { background: var(--orange-mid); color: white; }
-    .btn-danger { background: #c0392b; color: white; }
-
-    .container {
-      max-width: 1050px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
-
-    .hero, .card {
-      background: var(--cream);
-      padding: 24px;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      margin-bottom: 24px;
-    }
-
-    .hero { text-align: center; padding: 32px; }
-
-    h1, h2, h3 {
-      color: var(--orange-deep);
-      margin-bottom: 14px;
-    }
-
-    p { line-height: 1.6; }
-
-    .rules-box {
-      background: #fff7ee;
-      border: 2px solid var(--orange-soft);
-      padding: 18px;
-      border-radius: var(--radius);
-      line-height: 1.8;
-      font-weight: bold;
-    }
-
-    label {
-      font-weight: 700;
-      margin-bottom: 6px;
-      display: block;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 11px;
-      border-radius: 10px;
-      border: 1.5px solid var(--orange-soft);
-      margin-bottom: 14px;
-      font-size: 1rem;
-    }
-
-    .slots {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .slot {
-      padding: 14px;
-      text-align: center;
-      border-radius: 12px;
-      font-weight: 800;
-      cursor: pointer;
-      border: 2px solid var(--orange-soft);
-      background: white;
-    }
-
-    .slot.available { color: var(--orange-deep); }
-
-    .slot.booked {
-      background: #ffd4c5;
-      color: #8a2d1a;
-      cursor: not-allowed;
-      border-color: #f0a080;
-    }
-
-    .slot.past {
-      background: #eee;
-      color: #777;
-      cursor: not-allowed;
-      border-color: #ccc;
-    }
-
-    .legend {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-      font-size: 0.9rem;
-    }
-
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.45);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      z-index: 99;
-    }
-
-    .hidden { display: none !important; }
-
-    .modal {
-      background: white;
-      border-radius: var(--radius);
-      padding: 24px;
-      max-width: 500px;
-      width: 100%;
-      box-shadow: var(--shadow);
-    }
-
-    .modal-footer {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .alert {
-      padding: 10px;
-      border-radius: 10px;
-      margin-bottom: 12px;
-      font-weight: 700;
-    }
-
-    .alert-error { background: #ffe2dc; color: #a03020; }
-    .alert-success { background: #e3f7df; color: #2d7a2d; }
-  </style>
-</head>
-
-<body>
-
-  <nav>
-    <div class="nav-title">Laurel Hall Wellness Room</div>
-    <button class="btn btn-primary" id="staffLoginBtn" onclick="openStaffLogin()">Laurel Staff Login</button>
-  </nav>
-
-  <div class="container">
-
-    <section class="hero">
-      <h1>Wellness Room Booking</h1>
-      <p>Reserve a peaceful 30-minute session.</p>
-    </section>
-
-    <section class="card">
-      <h2>Room Rules</h2>
-
-      <div class="rules-box">
-        <p>1. Be respectful;</p>
-        <p>2. Clean up;</p>
-        <p>3. No removing items;</p>
-      </div>
-    </section>
-
-  </div>
-
-  <!-- BOOKING MODAL -->
-  <div class="modal-overlay hidden" id="bookingModal">
-    <div class="modal">
-      <h3>Reserve Your Slot</h3>
-
-      <label>Full Name *</label>
-      <input type="text" id="f_name" />
-
-      <label>NJIT ID *</label>
-      <input type="text" id="f_njitid" />
-
-      <label>Room *</label>
-      <input type="text" id="f_room" />
-
-      <label>Phone *</label>
-      <input type="tel" id="f_phone" />
-
-      <!-- ✅ ONLY CHANGE -->
-      <div class="rules-box" style="font-size:0.85rem;">
-        By booking, you agree to keep the room tidy, leave on time, present your NJIT ID at entry, and follow all room rules.
-        <br><br>
-        By signing up to enter the Relaxation Room, participants acknowledge and agree that they will not hold Residence Life liable for any damage to personal property or for any bodily injury that may occur while using the space.
-      </div>
-
-      <div class="modal-footer">
-        <button class="btn">Cancel</button>
-        <button class="btn btn-orange">Confirm Booking</button>
-      </div>
+    <div class="rules-box">
+      <p>1. Be respectful to the space and the items in it;</p>
+      <p>2. Clean up after yourself;</p>
+      <p>3. Do not take out any items from the Wellness Room, save for the coffee/tea you make;</p>
+      <p>4. Absolutely no inappropriate activities in the Wellness Room;</p>
+      <p>5. No extra time outside of the 30 minute booked slot, unless discussed prior.</p>
+      <br>
+      <p>Failure to abide by these rules will result in disciplinary actions with the Residence Life staff.</p>
     </div>
+  </section>
+
+  <section class="card">
+    <h2>Check Availability</h2>
+
+    <label for="datePicker">Select Date</label>
+    <input type="date" id="datePicker" onchange="changeDate()" />
+
+    <div class="slots" id="slotsGrid">Loading slots…</div>
+
+    <div class="legend">
+      <span>Available</span>
+      <span>Booked</span>
+      <span>Past</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>View or Cancel Your Booking</h2>
+    <p style="margin-bottom:14px;">
+      Enter your NJIT ID to view your reservation history. You can cancel any active booking from the list.
+    </p>
+
+    <div id="lookupAlert"></div>
+
+    <label>NJIT ID #</label>
+    <input type="text" id="lookup_njitid" />
+
+    <button class="btn btn-orange" onclick="lookupStudentBookings()">View My Bookings</button>
+
+    <div class="table-wrap hidden" id="studentBookingsWrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time Slot</th>
+            <th>Name</th>
+            <th>Room #</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="studentBookingsBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<section class="card hidden" id="staffDashboard">
+  <h2>Staff/OA Spreadsheet</h2>
+  <p>Laurel Hall Wellness Room · Booking Records</p>
+  <br>
+
+  <button class="btn btn-danger" onclick="logoutStaff()">Log Out</button>
+  <button class="btn btn-danger" onclick="clearAllBookings()">Clear All Records</button>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Time Slot</th>
+          <th>Name</th>
+          <th>NJIT ID</th>
+          <th>Room #</th>
+          <th>Phone</th>
+          <th>Status</th>
+          <th>Cancelled At</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="staffTableBody">
+        <tr><td colspan="9">Loading…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+  <div id="bookingAlert"></div>
+
+  <label>Full Name *</label>
+  <input type="text" id="f_name" />
+
+  <label>NJIT ID # *</label>
+  <input type="text" id="f_njitid" />
+
+  <label>Room Number *</label>
+  <input type="text" id="f_room" />
+
+  <label>Phone Number *</label>
+  <input type="tel" id="f_phone" />
+
+  <input type="hidden" id="f_guests" value="1" />
+
+  <div class="rules-box" style="font-size:0.85rem;">
+    By booking, you agree to keep the room tidy, leave on time, present your NJIT ID at entry, and follow all room rules.
   </div>
 
-</body>
-</html>
+  <div class="modal-footer">
+    <button class="btn" onclick="closeBookingModal()">Cancel</button>
+    <button class="btn btn-orange" id="submitBtn" onclick="submitBooking()">✅ Confirm Booking</button>
+  </div>
+</div>
+
+  <div id="loginAlert"></div>
+
+  <label>Email</label>
+  <input type="email" id="staffEmail" />
+
+  <label>Password</label>
+  <input type="password" id="staffPassword" />
+
+  <div class="modal-footer">
+    <button class="btn" onclick="closeStaffLogin()">Cancel</button>
+    <button class="btn btn-orange" onclick="staffLogin()">Login →</button>
+  </div>
+</div>
+
+  <div class="modal-footer">
+    <button class="btn btn-orange" onclick="closeSuccess()">Got it!</button>
+  </div>
+</div>
