@@ -616,22 +616,56 @@
     return API_URL && API_URL.indexOf('PASTE_YOUR_GOOGLE_APPS_SCRIPT') === -1;
   }
 
-  async function apiCall(action, payload) {
-    if (!apiReady()) {
-      throw new Error('Please paste your Google Apps Script Web App URL into API_URL in the HTML file.');
-    }
+  function apiCall(action, payload) {
+    return new Promise(function(resolve, reject) {
+      if (!apiReady()) {
+        reject(new Error('Apps Script URL is missing.'));
+        return;
+      }
 
-    var res = await fetch(API_URL, {
-      method: 'POST',
-      mode: 'cors',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(Object.assign({ action: action }, payload || {}))
+      var callbackName = 'jsonp_callback_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+      var script = document.createElement('script');
+      var timeoutId;
+
+      window[callbackName] = function(data) {
+        clearTimeout(timeoutId);
+        delete window[callbackName];
+        if (script && script.parentNode) script.parentNode.removeChild(script);
+
+        if (!data.ok && !data.success) {
+          reject(new Error(data.error || 'Something went wrong.'));
+        } else {
+          resolve(data);
+        }
+      };
+
+      var url =
+        API_URL +
+        '?action=' + encodeURIComponent(action) +
+        '&callback=' + encodeURIComponent(callbackName);
+
+      if (payload) {
+        url += '&data=' + encodeURIComponent(JSON.stringify(payload));
+      }
+
+      script.src = url;
+      script.onerror = function() {
+        clearTimeout(timeoutId);
+        delete window[callbackName];
+        if (script && script.parentNode) script.parentNode.removeChild(script);
+        reject(new Error('Could not connect to Apps Script. Check deployment access and URL.'));
+      };
+
+      timeoutId = setTimeout(function() {
+        delete window[callbackName];
+        if (script && script.parentNode) script.parentNode.removeChild(script);
+        reject(new Error('Connection timed out. Redeploy Apps Script and check access permissions.'));
+      }, 15000);
+
+      document.body.appendChild(script);
     });
-
-    var data = await res.json();
-    if (!data.ok) throw new Error(data.error || 'Something went wrong.');
-    return data;
   }
+
 
   async function loadBookingsFromServer(showMessage) {
     try {
