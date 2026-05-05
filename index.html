@@ -98,6 +98,47 @@
       font-size: 1rem;
     }
 
+    .slots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .slot {
+      padding: 14px;
+      text-align: center;
+      border-radius: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      border: 2px solid var(--orange-soft);
+      background: white;
+    }
+
+    .slot.available { color: var(--orange-deep); }
+
+    .slot.booked {
+      background: #ffd4c5;
+      color: #8a2d1a;
+      cursor: not-allowed;
+      border-color: #f0a080;
+    }
+
+    .slot.past {
+      background: #eee;
+      color: #777;
+      cursor: not-allowed;
+      border-color: #ccc;
+    }
+
+    .legend {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      font-size: 0.9rem;
+    }
+
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -126,65 +167,75 @@
       gap: 10px;
       margin-top: 14px;
     }
+
+    .alert {
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .alert-error { background: #ffe2dc; color: #a03020; }
+    .alert-success { background: #e3f7df; color: #2d7a2d; }
   </style>
 </head>
 
 <body>
 
-<nav>
-  <div class="nav-title">Laurel Hall Wellness Room</div>
-  <button class="btn btn-primary">Laurel Staff Login</button>
-</nav>
+  <nav>
+    <div class="nav-title">Laurel Hall Wellness Room</div>
+    <button class="btn btn-primary" id="staffLoginBtn" onclick="openStaffLogin()">Laurel Staff Login</button>
+  </nav>
 
-<div class="container">
+  <div class="container">
 
-<section class="hero">
-  <h1>Wellness Room Booking</h1>
-  <p>Reserve a peaceful 30-minute session.</p>
-</section>
+    <section class="hero">
+      <h1>Wellness Room Booking</h1>
+      <p>Reserve a peaceful 30-minute session.</p>
+    </section>
 
-<section class="card">
-  <h2>Room Rules</h2>
+    <section class="card">
+      <h2>Room Rules</h2>
 
-  <div class="rules-box">
-    <p>1. Be respectful;</p>
-    <p>2. Clean up;</p>
-    <p>3. No removing items;</p>
+      <div class="rules-box">
+        <p>1. Be respectful;</p>
+        <p>2. Clean up;</p>
+        <p>3. No removing items;</p>
+      </div>
+    </section>
+
   </div>
-</section>
 
-</div>
+  <!-- BOOKING MODAL -->
+  <div class="modal-overlay hidden" id="bookingModal">
+    <div class="modal">
+      <h3>Reserve Your Slot</h3>
 
-<!-- BOOKING MODAL -->
-<div class="modal-overlay hidden" id="bookingModal">
-  <div class="modal">
-    <h3>Reserve Your Slot</h3>
+      <label>Full Name *</label>
+      <input type="text" id="f_name" />
 
-    <label>Full Name *</label>
-    <input type="text" id="f_name" />
+      <label>NJIT ID *</label>
+      <input type="text" id="f_njitid" />
 
-    <label>NJIT ID *</label>
-    <input type="text" id="f_njitid" />
+      <label>Room *</label>
+      <input type="text" id="f_room" />
 
-    <label>Room *</label>
-    <input type="text" id="f_room" />
+      <label>Phone *</label>
+      <input type="tel" id="f_phone" />
 
-    <label>Phone *</label>
-    <input type="tel" id="f_phone" />
+      <!-- ✅ ONLY CHANGE -->
+      <div class="rules-box" style="font-size:0.85rem;">
+        By booking, you agree to keep the room tidy, leave on time, present your NJIT ID at entry, and follow all room rules.
+        <br><br>
+        By signing up to enter the Relaxation Room, participants acknowledge and agree that they will not hold Residence Life liable for any damage to personal property or for any bodily injury that may occur while using the space.
+      </div>
 
-    <!-- ✅ ONLY CHANGE IS HERE -->
-    <div class="rules-box" style="font-size:0.85rem;">
-      By booking, you agree to keep the room tidy, leave on time, present your NJIT ID at entry, and follow all room rules.
-      <br><br>
-      By signing up to enter the Relaxation Room, participants acknowledge and agree that they will not hold Residence Life liable for any damage to personal property or for any bodily injury that may occur while using the space.
-    </div>
-
-    <div class="modal-footer">
-      <button class="btn">Cancel</button>
-      <button class="btn btn-orange">Confirm Booking</button>
+      <div class="modal-footer">
+        <button class="btn">Cancel</button>
+        <button class="btn btn-orange">Confirm Booking</button>
+      </div>
     </div>
   </div>
-</div>
 
 </body>
 </html>
