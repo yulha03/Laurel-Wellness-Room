@@ -32,7 +32,9 @@
     --blue-100: #DBEAFE;
     --blue-700: #1D4ED8;
   }
+
   * { box-sizing: border-box; }
+
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -40,24 +42,30 @@
     color: var(--gray-900);
     min-height: 100vh;
   }
+
   header {
     background: linear-gradient(135deg, var(--orange-500), var(--orange-700));
     color: white;
     padding: 28px 24px;
     box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2);
   }
+
   header .container {
     max-width: 1100px;
     margin: 0 auto;
+    padding: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 16px;
   }
+
   header h1 { margin: 0 0 4px 0; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
   header p { margin: 0; opacity: 0.95; font-size: 14px; }
-  .header-actions { display: flex; gap: 10px; align-items: center; }
+
+  .header-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
   .header-btn {
     background: rgba(255,255,255,0.18);
     color: white;
@@ -72,7 +80,9 @@
   }
   .header-btn:hover { background: rgba(255,255,255,0.28); }
   .header-btn.active { background: white; color: var(--orange-700); }
+
   .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+
   .card {
     background: white;
     border-radius: 12px;
@@ -81,7 +91,7 @@
     border: 1px solid var(--orange-100);
     margin-bottom: 20px;
   }
-  .card:last-child { margin-bottom: 0; }
+
   .card h2 {
     margin: 0 0 16px 0;
     color: var(--orange-700);
@@ -91,25 +101,28 @@
     align-items: center;
     gap: 10px;
   }
+
   .card h2 .icon {
     background: var(--orange-100);
-    width: 34px; height: 34px;
+    width: 34px;
+    height: 34px;
     border-radius: 8px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     font-size: 17px;
   }
+
   .rules {
     background: var(--orange-50);
     border-left: 4px solid var(--orange-500);
-    padding: 20px;
-    border-radius: 8px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
+
   .rules p { margin: 0 0 12px 0; font-weight: 600; color: var(--orange-800); }
   .rules ol { margin: 0; padding-left: 22px; line-height: 1.7; color: var(--gray-700); }
+
   .rules .warning {
     margin-top: 14px;
     padding: 10px 12px;
@@ -119,9 +132,16 @@
     color: var(--orange-800);
     font-weight: 500;
   }
-  .controls { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
-  .controls label { font-weight: 600; color: var(--gray-700); font-size: 14px; }
-  select, input {
+
+  .controls, .filters {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  input, select {
     padding: 10px 12px;
     border: 1.5px solid var(--gray-200);
     border-radius: 8px;
@@ -130,21 +150,31 @@
     background: white;
     transition: border-color 0.15s;
   }
-  select:focus, input:focus {
+
+  input:focus, select:focus {
     outline: none;
     border-color: var(--orange-500);
     box-shadow: 0 0 0 3px var(--orange-100);
   }
-  .week-nav { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+
+  .week-nav { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .week-label { font-weight: 600; color: var(--gray-700); font-size: 14px; min-width: 200px; text-align: center; }
-  .schedule { overflow-x: auto; border-radius: 8px; border: 1px solid var(--gray-200); }
+
+  .schedule {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid var(--gray-200);
+  }
+
   table.schedule-table { width: 100%; border-collapse: collapse; min-width: 700px; font-size: 13px; }
+
   table.schedule-table th, table.schedule-table td {
     border: 1px solid var(--gray-200);
     padding: 0;
     text-align: center;
     vertical-align: middle;
   }
+
   table.schedule-table th {
     background: var(--orange-100);
     color: var(--orange-800);
@@ -152,7 +182,9 @@
     padding: 12px 8px;
     font-size: 13px;
   }
+
   table.schedule-table th.time-col { width: 130px; background: var(--orange-50); }
+
   table.schedule-table td.time-cell {
     background: var(--orange-50);
     color: var(--gray-700);
@@ -160,6 +192,7 @@
     padding: 8px;
     font-size: 12px;
   }
+
   .slot {
     height: 48px;
     cursor: pointer;
@@ -172,15 +205,19 @@
     align-items: center;
     justify-content: center;
   }
+
   .slot.available { background: var(--green-50); color: var(--green-700); }
   .slot.available:hover { background: var(--green-100); }
   .slot.taken { background: var(--orange-200); color: var(--orange-800); cursor: not-allowed; font-weight: 600; }
   .slot.past { background: var(--gray-100); color: var(--gray-300); cursor: not-allowed; }
+
   .legend { display: flex; gap: 16px; margin-top: 12px; font-size: 13px; color: var(--gray-700); flex-wrap: wrap; }
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .legend-swatch { width: 16px; height: 16px; border-radius: 4px; border: 1px solid var(--gray-200); }
+
   .modal-overlay {
-    position: fixed; inset: 0;
+    position: fixed;
+    inset: 0;
     background: rgba(0,0,0,0.5);
     display: none;
     align-items: center;
@@ -188,7 +225,9 @@
     z-index: 1000;
     padding: 20px;
   }
+
   .modal-overlay.active { display: flex; }
+
   .modal {
     background: white;
     border-radius: 16px;
@@ -199,8 +238,10 @@
     overflow-y: auto;
     box-shadow: 0 20px 50px rgba(0,0,0,0.25);
   }
+
   .modal h3 { margin: 0 0 6px 0; color: var(--orange-700); font-size: 22px; }
-  .modal .booking-info {
+
+  .booking-info {
     background: var(--orange-50);
     border-radius: 8px;
     padding: 12px 14px;
@@ -211,10 +252,12 @@
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
+
   .form-group { margin-bottom: 14px; }
   .form-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 14px; color: var(--gray-700); }
   .form-group input, .form-group select { width: 100%; }
   .form-group .hint { font-size: 12px; color: var(--gray-500); margin-top: 4px; }
+
   .checkbox-group {
     display: flex;
     align-items: flex-start;
@@ -224,14 +267,19 @@
     padding: 12px;
     border-radius: 8px;
   }
+
   .checkbox-group input[type="checkbox"] {
     margin-top: 3px;
-    width: 16px; height: 16px;
+    width: 16px;
+    height: 16px;
     accent-color: var(--orange-600);
     flex-shrink: 0;
   }
+
   .checkbox-group label { font-size: 13px; color: var(--gray-700); line-height: 1.5; cursor: pointer; }
+
   .button-row { display: flex; gap: 10px; margin-top: 20px; }
+
   button {
     padding: 11px 20px;
     border: none;
@@ -242,6 +290,9 @@
     font-family: inherit;
     transition: all 0.15s;
   }
+
+  button:disabled { opacity: 0.6; cursor: not-allowed; }
+
   .btn-primary { background: var(--orange-600); color: white; flex: 1; }
   .btn-primary:hover { background: var(--orange-700); }
   .btn-secondary { background: var(--gray-100); color: var(--gray-700); }
@@ -250,6 +301,7 @@
   .btn-danger:hover { background: #FECACA; }
   .btn-icon { background: var(--orange-100); color: var(--orange-700); padding: 8px 12px; }
   .btn-icon:hover { background: var(--orange-200); }
+
   .status-badge {
     display: inline-block;
     padding: 2px 10px;
@@ -259,10 +311,13 @@
     text-transform: uppercase;
     letter-spacing: 0.4px;
   }
+
   .status-Booked { background: var(--blue-100); color: var(--blue-700); }
   .status-Cancelled { background: var(--red-100); color: var(--red-700); }
   .status-Completed { background: var(--green-100); color: var(--green-700); }
+
   .empty-state { text-align: center; padding: 30px 20px; color: var(--gray-500); font-size: 14px; }
+
   .toast {
     position: fixed;
     bottom: 24px;
@@ -280,8 +335,10 @@
     pointer-events: none;
     max-width: 320px;
   }
+
   .toast.show { opacity: 1; transform: translateY(0); }
   .toast.error { background: #991B1B; }
+
   .staff-banner {
     background: var(--blue-50);
     border: 1px solid var(--blue-100);
@@ -295,14 +352,15 @@
     justify-content: space-between;
     align-items: center;
   }
-  .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; align-items: center; }
-  .filters input, .filters select { padding: 8px 12px; }
+
   table.bookings-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
   table.bookings-table th, table.bookings-table td {
     padding: 10px 12px;
     text-align: left;
     border-bottom: 1px solid var(--gray-200);
   }
+
   table.bookings-table th {
     background: var(--orange-50);
     color: var(--orange-800);
@@ -311,16 +369,20 @@
     text-transform: uppercase;
     letter-spacing: 0.4px;
   }
+
   table.bookings-table tr:hover td { background: var(--orange-50); }
   table.bookings-table .actions { display: flex; gap: 6px; flex-wrap: wrap; }
   table.bookings-table .actions button { padding: 6px 10px; font-size: 12px; }
+
   .table-wrap { overflow-x: auto; border: 1px solid var(--gray-200); border-radius: 8px; }
+
   .stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 12px;
     margin-bottom: 16px;
   }
+
   .stat-card {
     background: white;
     border: 1px solid var(--orange-100);
@@ -328,10 +390,31 @@
     padding: 14px;
     text-align: center;
   }
+
   .stat-card .num { font-size: 26px; font-weight: 800; color: var(--orange-700); }
   .stat-card .lbl { font-size: 12px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  .connection-note {
+    background: var(--blue-50);
+    border: 1px solid var(--blue-100);
+    color: var(--blue-700);
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 14px;
+  }
+
   footer { text-align: center; padding: 24px; color: var(--gray-500); font-size: 13px; }
   .hidden { display: none !important; }
+
+  @media (max-width: 640px) {
+    header .container { align-items: flex-start; }
+    .header-actions { width: 100%; }
+    .header-btn { flex: 1; }
+    .container { padding: 16px; }
+    .card { padding: 18px; }
+    .button-row { flex-direction: column; }
+  }
 </style>
 </head>
 <body>
@@ -367,8 +450,9 @@
 
   <div class="card">
     <h2><span class="icon">&#128197;</span> Available Slots</h2>
+    <div class="connection-note" id="connectionNote">Loading shared bookings...</div>
     <div class="controls">
-      <div class="week-nav" style="margin-left:0;">
+      <div class="week-nav">
         <button class="btn-icon" id="prevWeek">&#9664; Prev</button>
         <span class="week-label" id="weekLabel"></span>
         <button class="btn-icon" id="nextWeek">Next &#9654;</button>
@@ -385,7 +469,6 @@
   </div>
 </div>
 
-
 <div class="container view hidden" id="myBookingsView">
   <div class="card">
     <h2><span class="icon">&#128270;</span> Check Your Booking</h2>
@@ -394,7 +477,7 @@
       <input type="text" id="lookupNjit" placeholder="8-digit NJIT ID" maxlength="8" inputmode="numeric" />
       <button class="btn-primary" style="flex:0 0 auto;" id="lookupBtn">Look Up</button>
     </div>
-    <div id="myBookingsResults"></div>
+    <div id="myBookingsResults" class="empty-state">Enter your NJIT ID to view your booking.</div>
   </div>
 </div>
 
@@ -414,6 +497,7 @@
         <option value="Cancelled">Cancelled</option>
         <option value="Completed">Completed</option>
       </select>
+      <button class="btn-icon" id="refreshBtn">Refresh</button>
       <button class="btn-icon" id="exportBtn">Export CSV</button>
     </div>
     <div class="table-wrap">
@@ -450,7 +534,7 @@
       </div>
       <div class="button-row">
         <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
-        <button type="submit" class="btn-primary">Confirm Booking</button>
+        <button type="submit" class="btn-primary" id="confirmBookingBtn">Confirm Booking</button>
       </div>
     </form>
   </div>
@@ -462,7 +546,7 @@
     <p style="color:var(--gray-500); margin-top:0; font-size:14px;">Enter your staff credentials to access the booking dashboard.</p>
     <form id="loginForm">
       <div class="form-group">
-        <label for="loginUser">Username</label>
+        <label for="loginUser">Email</label>
         <input type="text" id="loginUser" required autocomplete="username" />
       </div>
       <div class="form-group">
@@ -507,57 +591,155 @@
 <footer>Wellness Room Booking System &middot; Residence Life</footer>
 
 <script>
+  /**************************************************************
+   * IMPORTANT:
+   * 1. Create the Google Apps Script backend using the backend
+   *    code I provided.
+   * 2. Deploy it as a Web App.
+   * 3. Copy the Web App URL and paste it below.
+   **************************************************************/
+  var API_URL = 'https://script.google.com/a/macros/njit.edu/s/AKfycbwvFem8ywggtCxj0sYEW_nndf4L8C1pF78_Z6_-1xCrf04C0lAwsZPQhM16ewRKrlhP/exec';
+
   var START_HOUR = 9, END_HOUR = 16, SLOT_MINUTES = 30;
-  var STORAGE_KEY = 'wellnessBookings_v3';
   var SESSION_KEY = 'wellnessStaffSession';
   var STAFF_CREDS = { user: 'laurelhall06@gmail.com', pass: 'LaurelWellness@2026' };
 
-  var bookings = loadBookings();
+  var bookings = [];
   var weekOffset = 0;
   var pendingSlot = null;
   var staffLoggedIn = sessionStorage.getItem(SESSION_KEY) === 'yes';
   var currentView = 'student';
   var lookupNjit = '';
+  var isLoading = false;
 
-  function loadBookings() {
-    try { var raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : []; }
-    catch (e) { return []; }
+  function apiReady() {
+    return API_URL && API_URL.indexOf('PASTE_YOUR_GOOGLE_APPS_SCRIPT') === -1;
   }
-  function saveBookings() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(bookings)); } catch (e) {}
+
+  async function apiCall(action, payload) {
+    if (!apiReady()) {
+      throw new Error('Please paste your Google Apps Script Web App URL into API_URL in the HTML file.');
+    }
+
+    var res = await fetch(API_URL, {
+      method: 'POST',
+      mode: 'cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(Object.assign({ action: action }, payload || {}))
+    });
+
+    var data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Something went wrong.');
+    return data;
+  }
+
+  async function loadBookingsFromServer(showMessage) {
+    try {
+      isLoading = true;
+      if (showMessage) setConnectionNote('Loading shared bookings...');
+      var data = await apiCall('listBookings', {});
+      bookings = normalizeBookings(data.bookings || []);
+      reconcileStatusesLocalOnly();
+      setConnectionNote('Shared booking system connected. Slots update for all devices.');
+      refreshCurrentView();
+      return bookings;
+    } catch (err) {
+      setConnectionNote(err.message);
+      toast(err.message, true);
+      return bookings;
+    } finally {
+      isLoading = false;
+    }
+  }
+
+  function normalizeBookings(list) {
+    return list.map(function(b) {
+      return {
+        id: b.id || b.ID || '',
+        date: b.date || b.Date || '',
+        hour: Number(b.hour || b.Hour || 0),
+        min: Number(b.min || b.Minute || b.Min || 0),
+        name: b.name || b.Name || '',
+        njit: String(b.njit || b['NJIT ID'] || b.njitId || ''),
+        roomNumber: b.roomNumber || b['Room Number'] || '',
+        status: b.status || b.Status || 'Booked',
+        createdAt: b.createdAt || b['Created At'] || '',
+        cancelledAt: b.cancelledAt || b['Cancelled At'] || '',
+        cancelledBy: b.cancelledBy || b['Cancelled By'] || '',
+        completedAt: b.completedAt || b['Completed At'] || '',
+        updatedAt: b.updatedAt || b['Updated At'] || ''
+      };
+    });
+  }
+
+  function setConnectionNote(message) {
+    var note = document.getElementById('connectionNote');
+    if (note) note.textContent = message;
   }
 
   function startOfWeek(date) {
-    var d = new Date(date); d.setHours(0,0,0,0);
-    var day = d.getDay(); var diff = (day === 0 ? -6 : 1 - day);
-    d.setDate(d.getDate() + diff); return d;
+    var d = new Date(date);
+    d.setHours(0,0,0,0);
+    var day = d.getDay();
+    var diff = (day === 0 ? -6 : 1 - day);
+    d.setDate(d.getDate() + diff);
+    return d;
   }
-  function addDays(date, n) { var d = new Date(date); d.setDate(d.getDate() + n); return d; }
+
+  function addDays(date, n) {
+    var d = new Date(date);
+    d.setDate(d.getDate() + n);
+    return d;
+  }
+
   function fmtDateISO(d) {
     var y = d.getFullYear();
     var m = String(d.getMonth()+1).padStart(2,'0');
     var day = String(d.getDate()).padStart(2,'0');
     return y + '-' + m + '-' + day;
   }
-  function fmtDateShort(d) { return d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' }); }
+
+  function fmtDateShort(d) {
+    return d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+  }
+
   function fmtTime12(hour, min) {
     var ampm = hour >= 12 ? 'PM' : 'AM';
     var h = ((hour + 11) % 12) + 1;
     return h + ':' + String(min).padStart(2,'0') + ' ' + ampm;
   }
+
   function fmtTimeRange(hour, min) {
     var startStr = fmtTime12(hour, min);
     var endHour = hour, endMin = min + SLOT_MINUTES;
-    if (endMin >= 60) { endHour += 1; endMin -= 60; }
+    if (endMin >= 60) {
+      endHour += 1;
+      endMin -= 60;
+    }
     return startStr + ' \u2013 ' + fmtTime12(endHour, endMin);
   }
+
   function timeSlots() {
     var out = [];
-    for (var h = START_HOUR; h < END_HOUR; h++) { out.push({hour:h,min:0}); out.push({hour:h,min:30}); }
+    for (var h = START_HOUR; h < END_HOUR; h++) {
+      out.push({hour:h,min:0});
+      out.push({hour:h,min:30});
+    }
     return out;
   }
-  function slotDateTime(b) { var d = new Date(b.date + 'T00:00:00'); d.setHours(b.hour, b.min, 0, 0); return d; }
-  function slotEndDateTime(b) { var d = slotDateTime(b); d.setMinutes(d.getMinutes() + SLOT_MINUTES); return d; }
+
+  function slotDateTime(b) {
+    var d = new Date(b.date + 'T00:00:00');
+    d.setHours(Number(b.hour), Number(b.min), 0, 0);
+    return d;
+  }
+
+  function slotEndDateTime(b) {
+    var d = slotDateTime(b);
+    d.setMinutes(d.getMinutes() + SLOT_MINUTES);
+    return d;
+  }
+
   function isSlotPastTime(dateISO, hour, min) {
     var now = new Date();
     var slot = new Date(dateISO + 'T00:00:00');
@@ -565,23 +747,27 @@
     return slot < now;
   }
 
-  function reconcileStatuses() {
-    var now = new Date(); var changed = false;
+  function reconcileStatusesLocalOnly() {
+    var now = new Date();
     bookings.forEach(function(b) {
-      if (!b.status) { b.status = 'Booked'; changed = true; }
+      if (!b.status) b.status = 'Booked';
       if (b.status === 'Booked' && slotEndDateTime(b) <= now) {
-        b.status = 'Completed'; b.completedAt = now.toISOString(); changed = true;
+        b.status = 'Completed';
       }
     });
-    if (changed) saveBookings();
   }
+
   function activeBookingFor(dateISO, hour, min) {
-    return bookings.find(function(b) { return b.date === dateISO && b.hour === hour && b.min === min && b.status === 'Booked'; });
+    return bookings.find(function(b) {
+      return b.date === dateISO && Number(b.hour) === Number(hour) && Number(b.min) === Number(min) && b.status === 'Booked';
+    });
   }
+
   function escapeHtml(s) {
-    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) { return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]); });
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]);
+    });
   }
-  function uid() { return 'b_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,8); }
 
   function setView(v) {
     currentView = v;
@@ -591,43 +777,84 @@
     document.getElementById('navStudent').classList.toggle('active', v === 'student');
     document.getElementById('navMyBookings').classList.toggle('active', v === 'mybookings');
     document.getElementById('navStaff').classList.toggle('active', v === 'staff');
+
     if (v === 'student') renderSchedule();
     if (v === 'mybookings') renderMyBookings();
     if (v === 'staff') renderStaff();
   }
 
+  function refreshCurrentView() {
+    if (currentView === 'student') renderSchedule();
+    else if (currentView === 'mybookings') renderMyBookings();
+    else if (currentView === 'staff') renderStaff();
+  }
+
   function renderSchedule() {
-    reconcileStatuses();
+    reconcileStatusesLocalOnly();
+
     var today = new Date();
     var weekStart = addDays(startOfWeek(today), weekOffset * 7);
-    var days = [0,1,2,3,4].map(function(i) { return addDays(weekStart, i); });
+    var days = [0,1,2,3,4,5,6].map(function(i) { return addDays(weekStart, i); });
+
     document.getElementById('weekLabel').textContent =
-      days[0].toLocaleDateString(undefined,{month:'short',day:'numeric'}) + ' \u2013 ' + days[4].toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+      days[0].toLocaleDateString(undefined,{month:'short',day:'numeric'}) + ' \u2013 ' +
+      days[6].toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+
     var table = document.getElementById('scheduleTable');
     var html = '<thead><tr><th class="time-col">Time</th>';
-    days.forEach(function(d) { html += '<th>' + fmtDateShort(d) + '</th>'; });
+
+    days.forEach(function(d) {
+      html += '<th>' + fmtDateShort(d) + '</th>';
+    });
+
     html += '</tr></thead><tbody>';
+
     timeSlots().forEach(function(s) {
       html += '<tr><td class="time-cell">' + fmtTimeRange(s.hour, s.min) + '</td>';
+
       days.forEach(function(d) {
         var dateISO = fmtDateISO(d);
         var past = isSlotPastTime(dateISO, s.hour, s.min);
         var active = activeBookingFor(dateISO, s.hour, s.min);
         var cls = 'slot ', label = 'Available', clickable = false;
-        if (active) { cls += 'taken'; label = 'Booked'; }
-        else if (past) { cls += 'past'; label = '\u2014'; }
-        else { cls += 'available'; clickable = true; }
+
+        if (active) {
+          cls += 'taken';
+          label = 'Booked';
+        } else if (past) {
+          cls += 'past';
+          label = '\u2014';
+        } else {
+          cls += 'available';
+          clickable = true;
+        }
+
         html += '<td><div class="' + cls + '" data-date="' + dateISO + '" data-hour="' + s.hour + '" data-min="' + s.min + '" ' + (clickable ? 'data-clickable="1"' : '') + '>' + label + '</div></td>';
       });
+
       html += '</tr>';
     });
+
     html += '</tbody>';
     table.innerHTML = html;
+
     var clickEls = table.querySelectorAll('[data-clickable="1"]');
     for (var i = 0; i < clickEls.length; i++) {
       (function(el) {
-        el.addEventListener('click', function() {
-          pendingSlot = { date: el.dataset.date, hour: parseInt(el.dataset.hour,10), min: parseInt(el.dataset.min,10) };
+        el.addEventListener('click', async function() {
+          await loadBookingsFromServer(false);
+          pendingSlot = {
+            date: el.dataset.date,
+            hour: parseInt(el.dataset.hour,10),
+            min: parseInt(el.dataset.min,10)
+          };
+
+          if (activeBookingFor(pendingSlot.date, pendingSlot.hour, pendingSlot.min)) {
+            toast('Sorry, that slot was just booked.', true);
+            renderSchedule();
+            return;
+          }
+
           openBookingModal();
         });
       })(clickEls[i]);
@@ -637,64 +864,126 @@
   function openBookingModal() {
     if (!pendingSlot) return;
     var d = new Date(pendingSlot.date + 'T00:00:00');
-    document.getElementById('bookingInfo').innerHTML = '<strong>Wellness Room</strong><br>' + fmtDateShort(d) + ' \u00b7 ' + fmtTimeRange(pendingSlot.hour, pendingSlot.min);
+    document.getElementById('bookingInfo').innerHTML =
+      '<strong>Wellness Room</strong><br>' + fmtDateShort(d) + ' \u00b7 ' + fmtTimeRange(pendingSlot.hour, pendingSlot.min);
     document.getElementById('bookingModal').classList.add('active');
   }
+
   function closeBookingModal() {
     document.getElementById('bookingModal').classList.remove('active');
     document.getElementById('bookingForm').reset();
     pendingSlot = null;
   }
-  document.getElementById('bookingForm').addEventListener('submit', function(e) {
+
+  document.getElementById('bookingForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     if (!pendingSlot) return;
-    var name = document.getElementById('nameInput').value.trim();
-    var njit = document.getElementById('njitInput').value.trim();
-    var roomNum = document.getElementById('roomNumInput').value.trim();
-    var agreeRules = document.getElementById('agreeRules').checked;
-    var agreeLiab = document.getElementById('agreeLiability').checked;
-    if (!/^\d{8}$/.test(njit)) { toast('NJIT ID must be exactly 8 digits.', true); return; }
-    if (!agreeRules || !agreeLiab) { toast('You must agree to both statements.', true); return; }
-    if (activeBookingFor(pendingSlot.date, pendingSlot.hour, pendingSlot.min)) {
-      toast('Sorry, that slot was just booked.', true);
-      closeBookingModal(); renderSchedule(); return;
+
+    var btn = document.getElementById('confirmBookingBtn');
+    btn.disabled = true;
+    btn.textContent = 'Saving...';
+
+    try {
+      var name = document.getElementById('nameInput').value.trim();
+      var njit = document.getElementById('njitInput').value.trim();
+      var roomNum = document.getElementById('roomNumInput').value.trim();
+      var agreeRules = document.getElementById('agreeRules').checked;
+      var agreeLiab = document.getElementById('agreeLiability').checked;
+
+      if (!/^\d{8}$/.test(njit)) {
+        toast('NJIT ID must be exactly 8 digits.', true);
+        return;
+      }
+
+      if (!agreeRules || !agreeLiab) {
+        toast('You must agree to both statements.', true);
+        return;
+      }
+
+      var data = await apiCall('createBooking', {
+        booking: {
+          date: pendingSlot.date,
+          hour: pendingSlot.hour,
+          min: pendingSlot.min,
+          name: name,
+          njit: njit,
+          roomNumber: roomNum
+        }
+      });
+
+      bookings = normalizeBookings(data.bookings || []);
+      toast('Booking confirmed! This slot is now updated for everyone.');
+      closeBookingModal();
+      renderSchedule();
+
+    } catch (err) {
+      toast(err.message, true);
+      await loadBookingsFromServer(false);
+      renderSchedule();
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Confirm Booking';
     }
-    bookings.push({
-      id: uid(), date: pendingSlot.date, hour: pendingSlot.hour, min: pendingSlot.min,
-      name: name, njit: njit, roomNumber: roomNum,
-      status: 'Booked', createdAt: new Date().toISOString()
-    });
-    saveBookings();
-    toast('Booking confirmed! See you in the Wellness Room.');
-    closeBookingModal();
+  });
+
+  document.getElementById('cancelBtn').addEventListener('click', closeBookingModal);
+  document.getElementById('bookingModal').addEventListener('click', function(e) {
+    if (e.target.id === 'bookingModal') closeBookingModal();
+  });
+
+  document.getElementById('prevWeek').addEventListener('click', function() {
+    weekOffset -= 1;
     renderSchedule();
   });
-  document.getElementById('cancelBtn').addEventListener('click', closeBookingModal);
-  document.getElementById('bookingModal').addEventListener('click', function(e) { if (e.target.id === 'bookingModal') closeBookingModal(); });
-  document.getElementById('prevWeek').addEventListener('click', function() { weekOffset -= 1; renderSchedule(); });
-  document.getElementById('nextWeek').addEventListener('click', function() { weekOffset += 1; renderSchedule(); });
-  document.getElementById('njitInput').addEventListener('input', function(e) { e.target.value = e.target.value.replace(/\D/g,'').slice(0,8); });
 
-
-  document.getElementById('lookupNjit').addEventListener('input', function(e) { e.target.value = e.target.value.replace(/\D/g,'').slice(0,8); });
-  document.getElementById('lookupBtn').addEventListener('click', function() {
-    var v = document.getElementById('lookupNjit').value.trim();
-    if (!/^\d{8}$/.test(v)) { toast('Enter a valid 8-digit NJIT ID.', true); return; }
-    lookupNjit = v; renderMyBookings();
+  document.getElementById('nextWeek').addEventListener('click', function() {
+    weekOffset += 1;
+    renderSchedule();
   });
-  function renderMyBookings() {
-    reconcileStatuses();
-    var out = document.getElementById('myBookingsResults');
-    if (!lookupNjit) { out.innerHTML = '<div class="empty-state">Enter your NJIT ID to view your booking.</div>'; return; }
-    var mine = bookings.filter(function(b) { return b.njit === lookupNjit; }).sort(function(a,b) { return slotDateTime(b) - slotDateTime(a); });
-    if (mine.length === 0) {
-      out.innerHTML = '<div class="empty-state">No bookings found for NJIT #' + escapeHtml(lookupNjit) + '.</div>'; return;
+
+  document.getElementById('njitInput').addEventListener('input', function(e) {
+    e.target.value = e.target.value.replace(/\D/g,'').slice(0,8);
+  });
+
+  document.getElementById('lookupNjit').addEventListener('input', function(e) {
+    e.target.value = e.target.value.replace(/\D/g,'').slice(0,8);
+  });
+
+  document.getElementById('lookupBtn').addEventListener('click', async function() {
+    var v = document.getElementById('lookupNjit').value.trim();
+    if (!/^\d{8}$/.test(v)) {
+      toast('Enter a valid 8-digit NJIT ID.', true);
+      return;
     }
+    lookupNjit = v;
+    await loadBookingsFromServer(false);
+    renderMyBookings();
+  });
+
+  function renderMyBookings() {
+    reconcileStatusesLocalOnly();
+    var out = document.getElementById('myBookingsResults');
+
+    if (!lookupNjit) {
+      out.innerHTML = '<div class="empty-state">Enter your NJIT ID to view your booking.</div>';
+      return;
+    }
+
+    var mine = bookings
+      .filter(function(b) { return String(b.njit) === String(lookupNjit); })
+      .sort(function(a,b) { return slotDateTime(b) - slotDateTime(a); });
+
+    if (mine.length === 0) {
+      out.innerHTML = '<div class="empty-state">No bookings found for NJIT #' + escapeHtml(lookupNjit) + '.</div>';
+      return;
+    }
+
     out.innerHTML = '<div class="table-wrap" style="margin-top:12px;"><table class="bookings-table">' +
       '<thead><tr><th>Status</th><th>Date</th><th>Time</th><th>Name</th><th>Action</th></tr></thead><tbody>' +
       mine.map(function(b) {
         var d = new Date(b.date + 'T00:00:00');
         var canCancel = b.status === 'Booked' && slotDateTime(b) > new Date();
+
         return '<tr>' +
           '<td><span class="status-badge status-' + b.status + '">' + b.status + '</span></td>' +
           '<td>' + fmtDateShort(d) + '</td>' +
@@ -703,63 +992,116 @@
           '<td>' + (canCancel ? '<button class="btn-danger" data-cancel="' + b.id + '">Cancel</button>' : '<span style="color:var(--gray-300);">\u2014</span>') + '</td>' +
         '</tr>';
       }).join('') + '</tbody></table></div>';
+
     var cancelBtns = out.querySelectorAll('[data-cancel]');
     for (var i = 0; i < cancelBtns.length; i++) {
       (function(btn) {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', async function() {
           var id = btn.getAttribute('data-cancel');
           if (!confirm('Cancel this booking? This cannot be undone.')) return;
-          var b = bookings.find(function(x) { return x.id === id; }); if (!b) return;
-          b.status = 'Cancelled'; b.cancelledAt = new Date().toISOString(); b.cancelledBy = 'student';
-          saveBookings(); toast('Booking cancelled.'); renderMyBookings(); renderSchedule();
+
+          try {
+            var data = await apiCall('cancelBooking', { id: id, cancelledBy: 'student' });
+            bookings = normalizeBookings(data.bookings || []);
+            toast('Booking cancelled.');
+            renderMyBookings();
+            renderSchedule();
+          } catch (err) {
+            toast(err.message, true);
+          }
         });
       })(cancelBtns[i]);
     }
   }
 
-  function openLoginModal() { document.getElementById('loginModal').classList.add('active'); }
-  function closeLoginModal() { document.getElementById('loginModal').classList.remove('active'); document.getElementById('loginForm').reset(); }
+  function openLoginModal() {
+    document.getElementById('loginModal').classList.add('active');
+  }
+
+  function closeLoginModal() {
+    document.getElementById('loginModal').classList.remove('active');
+    document.getElementById('loginForm').reset();
+  }
+
   document.getElementById('loginCancelBtn').addEventListener('click', closeLoginModal);
-  document.getElementById('loginModal').addEventListener('click', function(e) { if (e.target.id === 'loginModal') closeLoginModal(); });
-  document.getElementById('loginForm').addEventListener('submit', function(e) {
+
+  document.getElementById('loginModal').addEventListener('click', function(e) {
+    if (e.target.id === 'loginModal') closeLoginModal();
+  });
+
+  document.getElementById('loginForm').addEventListener('submit', async function(e) {
     e.preventDefault();
+
     var u = document.getElementById('loginUser').value.trim();
     var p = document.getElementById('loginPass').value;
+
     if (u === STAFF_CREDS.user && p === STAFF_CREDS.pass) {
-      staffLoggedIn = true; sessionStorage.setItem(SESSION_KEY, 'yes');
-      closeLoginModal(); setView('staff'); toast('Welcome, staff member.');
-    } else { toast('Invalid credentials.', true); }
+      staffLoggedIn = true;
+      sessionStorage.setItem(SESSION_KEY, 'yes');
+      closeLoginModal();
+      await loadBookingsFromServer(false);
+      setView('staff');
+      toast('Welcome, staff member.');
+    } else {
+      toast('Invalid credentials.', true);
+    }
   });
+
   document.getElementById('logoutBtn').addEventListener('click', function() {
-    staffLoggedIn = false; sessionStorage.removeItem(SESSION_KEY);
-    setView('student'); toast('Logged out.');
+    staffLoggedIn = false;
+    sessionStorage.removeItem(SESSION_KEY);
+    setView('student');
+    toast('Logged out.');
   });
 
   function renderStaff() {
-    if (!staffLoggedIn) { setView('student'); openLoginModal(); return; }
-    reconcileStatuses();
+    if (!staffLoggedIn) {
+      setView('student');
+      openLoginModal();
+      return;
+    }
+
+    reconcileStatusesLocalOnly();
+
     var total = bookings.length;
     var booked = bookings.filter(function(b) { return b.status === 'Booked'; }).length;
     var completed = bookings.filter(function(b) { return b.status === 'Completed'; }).length;
     var cancelled = bookings.filter(function(b) { return b.status === 'Cancelled'; }).length;
+
     document.getElementById('statsRow').innerHTML =
       '<div class="stat-card"><div class="num">' + total + '</div><div class="lbl">Total</div></div>' +
       '<div class="stat-card"><div class="num">' + booked + '</div><div class="lbl">Booked</div></div>' +
       '<div class="stat-card"><div class="num">' + completed + '</div><div class="lbl">Completed</div></div>' +
       '<div class="stat-card"><div class="num">' + cancelled + '</div><div class="lbl">Cancelled</div></div>';
+
     renderStaffTable();
   }
+
   function renderStaffTable() {
     var search = document.getElementById('staffSearch').value.trim().toLowerCase();
     var statusF = document.getElementById('staffStatusFilter').value;
-    var list = bookings.slice().sort(function(a,b) { return slotDateTime(b) - slotDateTime(a); });
-    if (statusF !== 'all') list = list.filter(function(b) { return b.status === statusF; });
-    if (search) list = list.filter(function(b) { return b.name.toLowerCase().includes(search) || b.njit.includes(search); });
+
+    var list = bookings.slice().sort(function(a,b) {
+      return slotDateTime(b) - slotDateTime(a);
+    });
+
+    if (statusF !== 'all') {
+      list = list.filter(function(b) { return b.status === statusF; });
+    }
+
+    if (search) {
+      list = list.filter(function(b) {
+        return String(b.name).toLowerCase().includes(search) || String(b.njit).includes(search);
+      });
+    }
+
     var table = document.getElementById('staffTable');
+
     if (list.length === 0) {
       table.innerHTML = '<thead><tr><th>Date</th><th>Time</th><th>Name</th><th>NJIT ID</th><th>Dorm Room</th><th>Status</th><th>Actions</th></tr></thead><tbody><tr><td colspan="7" style="text-align:center; color:var(--gray-500); padding:30px;">No bookings match these filters.</td></tr></tbody>';
       return;
     }
+
     table.innerHTML = '<thead><tr><th>Date</th><th>Time</th><th>Name</th><th>NJIT ID</th><th>Dorm Room</th><th>Status</th><th>Actions</th></tr></thead><tbody>' +
       list.map(function(b) {
         var d = new Date(b.date + 'T00:00:00');
@@ -777,116 +1119,196 @@
             '<button class="btn-secondary" data-delete="' + b.id + '">Delete</button>' +
           '</div></td></tr>';
       }).join('') + '</tbody>';
-    var editBtns = table.querySelectorAll('[data-edit]');
-    for (var i = 0; i < editBtns.length; i++) {
-      (function(btn) { btn.addEventListener('click', function() { openEditModal(btn.getAttribute('data-edit')); }); })(editBtns[i]);
-    }
-    var cancelBtns = table.querySelectorAll('[data-cancel]');
-    for (var j = 0; j < cancelBtns.length; j++) {
-      (function(btn) { btn.addEventListener('click', function() {
+
+    table.querySelectorAll('[data-edit]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        openEditModal(btn.getAttribute('data-edit'));
+      });
+    });
+
+    table.querySelectorAll('[data-cancel]').forEach(function(btn) {
+      btn.addEventListener('click', async function() {
         var id = btn.getAttribute('data-cancel');
         if (!confirm('Cancel this booking?')) return;
-        var b = bookings.find(function(x) { return x.id === id; }); if (!b) return;
-        b.status = 'Cancelled'; b.cancelledAt = new Date().toISOString(); b.cancelledBy = 'staff';
-        saveBookings(); toast('Booking cancelled.'); renderStaff();
-      }); })(cancelBtns[j]);
-    }
-    var completeBtns = table.querySelectorAll('[data-complete]');
-    for (var k = 0; k < completeBtns.length; k++) {
-      (function(btn) { btn.addEventListener('click', function() {
+
+        try {
+          var data = await apiCall('cancelBooking', { id: id, cancelledBy: 'staff' });
+          bookings = normalizeBookings(data.bookings || []);
+          toast('Booking cancelled.');
+          renderStaff();
+          renderSchedule();
+        } catch (err) {
+          toast(err.message, true);
+        }
+      });
+    });
+
+    table.querySelectorAll('[data-complete]').forEach(function(btn) {
+      btn.addEventListener('click', async function() {
         var id = btn.getAttribute('data-complete');
-        var b = bookings.find(function(x) { return x.id === id; }); if (!b) return;
-        b.status = 'Completed'; b.completedAt = new Date().toISOString();
-        saveBookings(); toast('Marked as completed.'); renderStaff();
-      }); })(completeBtns[k]);
-    }
-    var deleteBtns = table.querySelectorAll('[data-delete]');
-    for (var m = 0; m < deleteBtns.length; m++) {
-      (function(btn) { btn.addEventListener('click', function() {
+
+        try {
+          var data = await apiCall('updateBookingStatus', { id: id, status: 'Completed' });
+          bookings = normalizeBookings(data.bookings || []);
+          toast('Marked as completed.');
+          renderStaff();
+          renderSchedule();
+        } catch (err) {
+          toast(err.message, true);
+        }
+      });
+    });
+
+    table.querySelectorAll('[data-delete]').forEach(function(btn) {
+      btn.addEventListener('click', async function() {
         var id = btn.getAttribute('data-delete');
         if (!confirm('Permanently delete this booking record?')) return;
-        bookings = bookings.filter(function(b) { return b.id !== id; });
-        saveBookings(); toast('Booking deleted.'); renderStaff();
-      }); })(deleteBtns[m]);
-    }
+
+        try {
+          var data = await apiCall('deleteBooking', { id: id });
+          bookings = normalizeBookings(data.bookings || []);
+          toast('Booking deleted.');
+          renderStaff();
+          renderSchedule();
+        } catch (err) {
+          toast(err.message, true);
+        }
+      });
+    });
   }
+
   document.getElementById('staffSearch').addEventListener('input', renderStaffTable);
   document.getElementById('staffStatusFilter').addEventListener('change', renderStaffTable);
+
+  document.getElementById('refreshBtn').addEventListener('click', async function() {
+    await loadBookingsFromServer(true);
+    toast('Bookings refreshed.');
+  });
 
   document.getElementById('exportBtn').addEventListener('click', function() {
     var headers = ['Date','Time','Name','NJIT ID','Dorm Room','Status','Created At'];
     var rows = bookings.map(function(b) {
       return [b.date, fmtTimeRange(b.hour, b.min), b.name, b.njit, b.roomNumber || '', b.status, b.createdAt || ''];
     });
-    var csv = [headers].concat(rows).map(function(r) { return r.map(function(v) { return '"' + String(v).replace(/"/g,'""') + '"'; }).join(','); }).join('\n');
+
+    var csv = [headers].concat(rows).map(function(r) {
+      return r.map(function(v) {
+        return '"' + String(v).replace(/"/g,'""') + '"';
+      }).join(',');
+    }).join('\n');
+
     var blob = new Blob([csv], { type: 'text/csv' });
     var url = URL.createObjectURL(blob);
-    var a = document.createElement('a'); a.href = url; a.download = 'wellness-bookings-' + fmtDateISO(new Date()) + '.csv'; a.click();
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'wellness-bookings-' + fmtDateISO(new Date()) + '.csv';
+    a.click();
     URL.revokeObjectURL(url);
   });
 
   function populateEditTimeOptions() {
     var sel = document.getElementById('editTime');
-    sel.innerHTML = timeSlots().map(function(s) { return '<option value="' + s.hour + ':' + s.min + '">' + fmtTimeRange(s.hour, s.min) + '</option>'; }).join('');
+    sel.innerHTML = timeSlots().map(function(s) {
+      return '<option value="' + s.hour + ':' + s.min + '">' + fmtTimeRange(s.hour, s.min) + '</option>';
+    }).join('');
   }
+
   function openEditModal(id) {
-    var b = bookings.find(function(x) { return x.id === id; }); if (!b) return;
+    var b = bookings.find(function(x) { return x.id === id; });
+    if (!b) return;
+
     populateEditTimeOptions();
+
     document.getElementById('editId').value = b.id;
     document.getElementById('editName').value = b.name;
     document.getElementById('editNjit').value = b.njit;
     document.getElementById('editRoomNum').value = b.roomNumber || '';
     document.getElementById('editDate').value = b.date;
-    document.getElementById('editTime').value = b.hour + ':' + b.min;
+    document.getElementById('editTime').value = Number(b.hour) + ':' + Number(b.min);
     document.getElementById('editStatus').value = b.status;
     document.getElementById('editModal').classList.add('active');
   }
-  function closeEditModal() { document.getElementById('editModal').classList.remove('active'); }
+
+  function closeEditModal() {
+    document.getElementById('editModal').classList.remove('active');
+  }
+
   document.getElementById('editCancelBtn').addEventListener('click', closeEditModal);
-  document.getElementById('editModal').addEventListener('click', function(e) { if (e.target.id === 'editModal') closeEditModal(); });
-  document.getElementById('editNjit').addEventListener('input', function(e) { e.target.value = e.target.value.replace(/\D/g,'').slice(0,8); });
-  document.getElementById('editForm').addEventListener('submit', function(e) {
+
+  document.getElementById('editModal').addEventListener('click', function(e) {
+    if (e.target.id === 'editModal') closeEditModal();
+  });
+
+  document.getElementById('editNjit').addEventListener('input', function(e) {
+    e.target.value = e.target.value.replace(/\D/g,'').slice(0,8);
+  });
+
+  document.getElementById('editForm').addEventListener('submit', async function(e) {
     e.preventDefault();
+
     var id = document.getElementById('editId').value;
-    var b = bookings.find(function(x) { return x.id === id; }); if (!b) return;
     var njit = document.getElementById('editNjit').value.trim();
-    if (!/^\d{8}$/.test(njit)) { toast('NJIT ID must be exactly 8 digits.', true); return; }
-    var parts = document.getElementById('editTime').value.split(':');
-    var newHour = parseInt(parts[0], 10), newMin = parseInt(parts[1], 10);
-    var newDate = document.getElementById('editDate').value;
-    var newStatus = document.getElementById('editStatus').value;
-    if (newStatus === 'Booked') {
-      var conflict = bookings.find(function(x) { return x.id !== b.id && x.status === 'Booked' && x.date === newDate && x.hour === newHour && x.min === newMin; });
-      if (conflict) { toast('That slot is already booked.', true); return; }
+
+    if (!/^\d{8}$/.test(njit)) {
+      toast('NJIT ID must be exactly 8 digits.', true);
+      return;
     }
-    b.name = document.getElementById('editName').value.trim();
-    b.njit = njit;
-    b.roomNumber = document.getElementById('editRoomNum').value.trim();
-    b.date = newDate;
-    b.hour = newHour; b.min = newMin; b.status = newStatus;
-    b.updatedAt = new Date().toISOString();
-    saveBookings(); closeEditModal(); toast('Booking updated.'); renderStaff();
+
+    var parts = document.getElementById('editTime').value.split(':');
+
+    var updatedBooking = {
+      id: id,
+      name: document.getElementById('editName').value.trim(),
+      njit: njit,
+      roomNumber: document.getElementById('editRoomNum').value.trim(),
+      date: document.getElementById('editDate').value,
+      hour: parseInt(parts[0], 10),
+      min: parseInt(parts[1], 10),
+      status: document.getElementById('editStatus').value
+    };
+
+    try {
+      var data = await apiCall('updateBooking', { booking: updatedBooking });
+      bookings = normalizeBookings(data.bookings || []);
+      closeEditModal();
+      toast('Booking updated.');
+      renderStaff();
+      renderSchedule();
+    } catch (err) {
+      toast(err.message, true);
+    }
   });
 
   function toast(message, isError) {
     var t = document.getElementById('toast');
-    t.textContent = message; t.classList.toggle('error', !!isError); t.classList.add('show');
-    clearTimeout(toast._tm); toast._tm = setTimeout(function() { t.classList.remove('show'); }, 3000);
+    t.textContent = message;
+    t.classList.toggle('error', !!isError);
+    t.classList.add('show');
+    clearTimeout(toast._tm);
+    toast._tm = setTimeout(function() {
+      t.classList.remove('show');
+    }, 3000);
   }
 
-  document.getElementById('navStudent').addEventListener('click', function() { setView('student'); });
-  document.getElementById('navMyBookings').addEventListener('click', function() { setView('mybookings'); });
-  document.getElementById('navStaff').addEventListener('click', function() { if (staffLoggedIn) setView('staff'); else openLoginModal(); });
+  document.getElementById('navStudent').addEventListener('click', function() {
+    setView('student');
+  });
 
-  reconcileStatuses();
+  document.getElementById('navMyBookings').addEventListener('click', function() {
+    setView('mybookings');
+  });
+
+  document.getElementById('navStaff').addEventListener('click', function() {
+    if (staffLoggedIn) setView('staff');
+    else openLoginModal();
+  });
+
   setView(staffLoggedIn ? 'staff' : 'student');
+  loadBookingsFromServer(true);
 
   setInterval(function() {
-    reconcileStatuses();
-    if (currentView === 'staff') renderStaff();
-    else if (currentView === 'student') renderSchedule();
-    else if (currentView === 'mybookings') renderMyBookings();
-  }, 60000);
+    loadBookingsFromServer(false);
+  }, 30000);
 </script>
 
 </body>
