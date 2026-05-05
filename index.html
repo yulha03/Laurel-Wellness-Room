@@ -1,199 +1,329 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Laurel Hall Wellness Room</title>
+<style>
+  :root {
+    --orange-deep: #b84f12;
+    --orange-mid: #f28c38;
+    --orange-soft: #ffd7a8;
+    --orange-pale: #fff3e6;
+    --orange-light: #fff9f2;
+    --cream: #ffffff;
+    --text-dark: #3a220f;
+    --shadow: 0 10px 30px rgba(184, 79, 18, 0.18);
+    --radius: 22px;
+  }
 
-  <style>
-    :root {
-      --orange-deep: #c2560a;
-      --orange-mid: #e07830;
-      --orange-soft: #fcd5a8;
-      --orange-pale: #fff4ea;
-      --cream: #fffdf8;
-      --text-dark: #3a1f00;
-      --shadow: 0 4px 20px rgba(194, 86, 10, 0.15);
-      --radius: 14px;
-    }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background:
+      radial-gradient(circle at top left, #ffe1bc 0, transparent 30%),
+      radial-gradient(circle at bottom right, #ffc98b 0, transparent 28%),
+      var(--orange-pale);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
 
-    body {
-      font-family: "Segoe UI", system-ui, sans-serif;
-      background: var(--orange-pale);
-      color: var(--text-dark);
-      min-height: 100vh;
-    }
+  nav {
+    background: linear-gradient(135deg, var(--orange-deep), var(--orange-mid));
+    color: white;
+    padding: 22px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow);
+    border-bottom-left-radius: 26px;
+    border-bottom-right-radius: 26px;
+  }
 
+  .nav-title {
+    font-size: 1.45rem;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+  }
+
+  .btn {
+    padding: 11px 20px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 800;
+    margin: 4px;
+    transition: 0.2s ease;
+    box-shadow: 0 4px 12px rgba(184, 79, 18, 0.18);
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.95;
+  }
+
+  .btn-primary {
+    background: white;
+    color: var(--orange-deep);
+  }
+
+  .btn-orange {
+    background: linear-gradient(135deg, var(--orange-mid), var(--orange-deep));
+    color: white;
+  }
+
+  .btn-danger {
+    background: #d65a3a;
+    color: white;
+  }
+
+  .container {
+    max-width: 1080px;
+    margin: 36px auto;
+    padding: 0 22px;
+  }
+
+  .hero,
+  .card {
+    background: rgba(255, 255, 255, 0.92);
+    padding: 28px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 28px;
+    border: 2px solid rgba(255, 215, 168, 0.9);
+  }
+
+  .hero {
+    text-align: center;
+    padding: 42px 28px;
+    background:
+      linear-gradient(135deg, #fffaf4, #fff0dd);
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    color: var(--orange-deep);
+    margin-bottom: 14px;
+  }
+
+  h2,
+  h3 {
+    color: var(--orange-deep);
+    margin-bottom: 16px;
+  }
+
+  p {
+    line-height: 1.7;
+  }
+
+  .rules-box {
+    background: #fff8ef;
+    border: 2px dashed var(--orange-soft);
+    padding: 20px;
+    border-radius: 20px;
+    line-height: 1.9;
+    font-weight: 700;
+  }
+
+  label {
+    font-weight: 800;
+    margin-bottom: 7px;
+    display: block;
+    color: var(--orange-deep);
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 13px 14px;
+    border-radius: 14px;
+    border: 2px solid var(--orange-soft);
+    margin-bottom: 16px;
+    font-size: 1rem;
+    background: #fffdf9;
+    outline: none;
+  }
+
+  input:focus,
+  select:focus {
+    border-color: var(--orange-mid);
+    box-shadow: 0 0 0 4px rgba(242, 140, 56, 0.18);
+  }
+
+  .slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .slot {
+    padding: 17px 12px;
+    text-align: center;
+    border-radius: 18px;
+    font-weight: 900;
+    cursor: pointer;
+    border: 2px solid var(--orange-soft);
+    background: #fffaf4;
+    box-shadow: 0 5px 16px rgba(184, 79, 18, 0.12);
+    transition: 0.2s ease;
+  }
+
+  .slot:hover {
+    transform: translateY(-3px);
+  }
+
+  .slot.available {
+    color: var(--orange-deep);
+    background: #fff7ec;
+  }
+
+  .slot.booked {
+    background: #ffd6c9;
+    color: #8a2d1a;
+    cursor: not-allowed;
+    border-color: #f0a080;
+  }
+
+  .slot.past {
+    background: #eeeeee;
+    color: #777;
+    cursor: not-allowed;
+    border-color: #cccccc;
+  }
+
+  .legend {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .legend span {
+    background: #fffaf4;
+    border: 1.5px solid var(--orange-soft);
+    padding: 8px 14px;
+    border-radius: 999px;
+  }
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(58, 34, 15, 0.45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 22px;
+    z-index: 99;
+    backdrop-filter: blur(4px);
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  .modal {
+    background: #fffdf9;
+    border-radius: 24px;
+    padding: 28px;
+    max-width: 520px;
+    width: 100%;
+    box-shadow: 0 16px 40px rgba(58, 34, 15, 0.25);
+    border: 2px solid var(--orange-soft);
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+
+  .alert {
+    padding: 12px 14px;
+    border-radius: 14px;
+    margin-bottom: 14px;
+    font-weight: 800;
+  }
+
+  .alert-error {
+    background: #ffe2dc;
+    color: #a03020;
+  }
+
+  .alert-success {
+    background: #e6f8df;
+    color: #2d7a2d;
+  }
+
+  .status-booked {
+    color: green;
+    font-weight: bold;
+  }
+
+  .status-cancelled {
+    color: #c0392b;
+    font-weight: bold;
+  }
+
+  .status-completed {
+    color: #555;
+    font-weight: bold;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 18px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 18px;
+    font-size: 0.9rem;
+    min-width: 850px;
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  th,
+  td {
+    padding: 13px;
+    border-bottom: 1px solid #f1e0cf;
+    text-align: left;
+  }
+
+  th {
+    background: #fff0dd;
+    color: var(--orange-deep);
+    font-weight: 900;
+  }
+
+  tr:hover td {
+    background: #fffaf4;
+  }
+
+  @media(max-width: 700px) {
     nav {
-      background: linear-gradient(135deg, var(--orange-deep), var(--orange-mid));
-      color: white;
-      padding: 18px 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: var(--shadow);
+      flex-direction: column;
+      gap: 14px;
+      text-align: center;
     }
 
-    .nav-title { font-size: 1.3rem; font-weight: 800; }
-
-    .btn {
-      padding: 10px 18px;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: 700;
-      margin: 3px;
+    h1 {
+      font-size: 1.8rem;
     }
 
-    .btn-primary { background: white; color: var(--orange-deep); }
-    .btn-orange { background: var(--orange-mid); color: white; }
-    .btn-danger { background: #c0392b; color: white; }
-
-    .container {
-      max-width: 1050px;
-      margin: 30px auto;
-      padding: 0 20px;
+    .hero,
+    .card {
+      padding: 22px;
     }
-
-    .hero, .card {
-      background: var(--cream);
-      padding: 24px;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      margin-bottom: 24px;
-    }
-
-    .hero { text-align: center; padding: 32px; }
-
-    h1, h2, h3 {
-      color: var(--orange-deep);
-      margin-bottom: 14px;
-    }
-
-    p { line-height: 1.6; }
-
-    .rules-box {
-      background: #fff7ee;
-      border: 2px solid var(--orange-soft);
-      padding: 18px;
-      border-radius: var(--radius);
-      line-height: 1.8;
-      font-weight: bold;
-    }
-
-    label {
-      font-weight: 700;
-      margin-bottom: 6px;
-      display: block;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 11px;
-      border-radius: 10px;
-      border: 1.5px solid var(--orange-soft);
-      margin-bottom: 14px;
-      font-size: 1rem;
-    }
-
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.45);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      z-index: 99;
-    }
-
-    .hidden { display: none !important; }
 
     .modal {
-      background: white;
-      border-radius: var(--radius);
-      padding: 24px;
-      max-width: 500px;
-      width: 100%;
-      box-shadow: var(--shadow);
+      padding: 22px;
     }
-
-    .modal-footer {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 14px;
-    }
-  </style>
-</head>
-
-<body>
-
-<nav>
-  <div class="nav-title">Laurel Hall Wellness Room</div>
-  <button class="btn btn-primary">Laurel Staff Login</button>
-</nav>
-
-<div class="container">
-
-<section class="hero">
-  <h1>Wellness Room Booking</h1>
-  <p>
-    Reserve a peaceful 30-minute session.<br>
-    <strong>Only 1 person permitted per slot.</strong>
-  </p>
-  <p style="margin-top:10px;">Open Daily · 9:00 AM – 4:00 PM · 30 min sessions</p>
-</section>
-
-<section class="card">
-  <h2>Room Rules</h2>
-  <p>Please read before entering:</p>
-
-  <div class="rules-box">
-    <p>1. Be respectful to the space and the items in it;</p>
-    <p>2. Clean up after yourself;</p>
-    <p>3. Do not take out any items from the Wellness Room, save for the coffee/tea you make;</p>
-    <p>4. Absolutely no inappropriate activities in the Wellness Room;</p>
-    <p>5. No extra time outside of the 30 minute booked slot, unless discussed prior.</p>
-    <br>
-    <p>Failure to abide by these rules will result in disciplinary actions with the Residence Life staff.</p>
-  </div>
-</section>
-
-</div>
-
-<!-- BOOKING MODAL -->
-<div class="modal-overlay hidden" id="bookingModal">
-  <div class="modal">
-    <h3>Reserve Your Slot</h3>
-
-    <label>Full Name *</label>
-    <input type="text" id="f_name" />
-
-    <label>NJIT ID # *</label>
-    <input type="text" id="f_njitid" />
-
-    <label>Room Number *</label>
-    <input type="text" id="f_room" />
-
-    <label>Phone Number *</label>
-    <input type="tel" id="f_phone" />
-
-    <!-- ✅ ONLY CHANGE -->
-    <div class="rules-box" style="font-size:0.85rem;">
-      By booking, you agree to keep the room tidy, leave on time, present your NJIT ID at entry, and follow all room rules.
-      <br><br>
-      By signing up to enter the Relaxation Room, participants acknowledge and agree that they will not hold Residence Life liable for any damage to personal property or for any bodily injury that may occur while using the space.
-    </div>
-
-    <div class="modal-footer">
-      <button class="btn">Cancel</button>
-      <button class="btn btn-orange">Confirm Booking</button>
-    </div>
-  </div>
-</div>
-
-</body>
-</html>
+  }
+</style>
