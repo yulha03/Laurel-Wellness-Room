@@ -1,147 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Laurel Hall Wellness Room</title>
+<!-- ONLY SHOWING THE MODIFIED PART — everything else in your file stays EXACTLY the same -->
 
-<style>
-:root {
-  --orange-deep:#c2560a;
-  --orange-mid:#e07830;
-  --orange-soft:#fcd5a8;
-  --orange-pale:#fff4ea;
-  --cream:#fffdf8;
-  --text-dark:#3a1f00;
-  --shadow:0 4px 20px rgba(194,86,10,.15);
-  --radius:14px;
-}
-
-body{
-  font-family:"Segoe UI",system-ui,sans-serif;
-  background:var(--orange-pale);
-  color:var(--text-dark);
-  margin:0;
-}
-
-.container{max-width:1000px;margin:30px auto;padding:20px;}
-.card{background:white;padding:20px;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;}
-.rules-box{background:#fff7ee;border:2px solid var(--orange-soft);padding:12px;border-radius:var(--radius);}
-
-input{width:100%;padding:10px;margin:10px 0;border-radius:10px;border:1px solid #ddd;}
-
-.btn{padding:10px 15px;border:none;border-radius:20px;background:var(--orange-mid);color:white;cursor:pointer;}
-.btn:hover{opacity:.9;}
-
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;justify-content:center;align-items:center;}
-.hidden{display:none;}
-.modal{background:white;padding:20px;border-radius:var(--radius);width:400px;}
-.alert-error{color:red;}
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-<div class="card">
-<h2>Book Wellness Room</h2>
-
-<button class="btn" onclick="openBookingModal()">Book Slot</button>
-
-</div>
-
-</div>
-
-<!-- BOOKING MODAL -->
 <div class="modal-overlay hidden" id="bookingModal">
-<div class="modal">
+  <div class="modal">
+    <h3>Reserve Your Slot</h3>
+    <p id="slotSummary" style="margin-bottom:14px;"></p>
 
-<h3>Reserve Slot</h3>
-<div id="bookingAlert"></div>
+    <div id="bookingAlert"></div>
 
-<label>Name</label>
-<input id="f_name">
+    <label>Full Name *</label>
+    <input type="text" id="f_name" />
 
-<label>NJIT ID</label>
-<input id="f_njitid">
+    <label>NJIT ID # *</label>
+    <input type="text" id="f_njitid" />
 
-<label>Room</label>
-<input id="f_room">
+    <label>Room Number *</label>
+    <input type="text" id="f_room" />
 
-<label>Phone</label>
-<input id="f_phone">
+    <label>Phone Number *</label>
+    <input type="tel" id="f_phone" />
 
-<!-- UPDATED RULES + LIABILITY -->
-<div class="rules-box" style="font-size:0.85rem;">
-By booking, you agree to keep the room tidy, leave on time, present your NJIT ID at entry, and follow all room rules.
-<br><br>
-By signing up to enter the Relaxation Room, participants acknowledge and agree that they will not hold Residence Life liable for any damage to personal property or for any bodily injury that may occur while using the space.
+    <input type="hidden" id="f_guests" value="1" />
+
+    <!-- ✅ UPDATED SECTION ONLY -->
+    <div class="rules-box" style="font-size:0.85rem;">
+      By booking, you agree to keep the room tidy, leave on time, present your NJIT ID at entry, and follow all room rules.
+      <br><br>
+      By signing up to enter the Relaxation Room, participants acknowledge and agree that they will not hold Residence Life liable for any damage to personal property or for any bodily injury that may occur while using the space.
+    </div>
+    <!-- ✅ END OF CHANGE -->
+
+    <div class="modal-footer">
+      <button class="btn" onclick="closeBookingModal()">Cancel</button>
+      <button class="btn btn-orange" id="submitBtn" onclick="submitBooking()">✅ Confirm Booking</button>
+    </div>
+  </div>
 </div>
-
-<!-- REQUIRED CHECKBOX -->
-<label style="font-size:0.85rem;display:block;margin-top:10px;">
-<input type="checkbox" id="agreeTerms">
-I acknowledge and agree to the terms above, including the liability waiver.
-</label>
-
-<br>
-
-<button class="btn" onclick="submitBooking()">Confirm Booking</button>
-<button class="btn" onclick="closeBookingModal()">Cancel</button>
-
-</div>
-</div>
-
-<script>
-
-function openBookingModal(){
-  document.getElementById("bookingModal").classList.remove("hidden");
-
-  // reset fields
-  document.getElementById("f_name").value="";
-  document.getElementById("f_njitid").value="";
-  document.getElementById("f_room").value="";
-  document.getElementById("f_phone").value="";
-  document.getElementById("bookingAlert").innerHTML="";
-
-  // reset checkbox
-  document.getElementById("agreeTerms").checked=false;
-}
-
-function closeBookingModal(){
-  document.getElementById("bookingModal").classList.add("hidden");
-}
-
-function showAlert(msg){
-  document.getElementById("bookingAlert").innerHTML =
-    `<div class="alert-error">${msg}</div>`;
-}
-
-function submitBooking(){
-
-  const name = document.getElementById("f_name").value.trim();
-  const id = document.getElementById("f_njitid").value.trim();
-  const room = document.getElementById("f_room").value.trim();
-  const phone = document.getElementById("f_phone").value.trim();
-  const agree = document.getElementById("agreeTerms").checked;
-
-  if(!name || !id || !room || !phone){
-    showAlert("Please fill all fields");
-    return;
-  }
-
-  // ✅ enforce agreement
-  if(!agree){
-    showAlert("You must agree to the terms before booking.");
-    return;
-  }
-
-  alert("Booking confirmed!");
-  closeBookingModal();
-}
-
-</script>
-
-</body>
-</html>
