@@ -685,7 +685,7 @@
   function renderMyBookings() {
     reconcileStatuses();
     var out = document.getElementById('myBookingsResults');
-    if (!lookupNjit) { out.innerHTML = ''; return; }
+    if (!lookupNjit) { out.innerHTML = '<div class="empty-state">Enter your NJIT ID to view your booking.</div>'; return; }
     var mine = bookings.filter(function(b) { return b.njit === lookupNjit; }).sort(function(a,b) { return slotDateTime(b) - slotDateTime(a); });
     if (mine.length === 0) {
       out.innerHTML = '<div class="empty-state">No bookings found for NJIT #' + escapeHtml(lookupNjit) + '.</div>'; return;
