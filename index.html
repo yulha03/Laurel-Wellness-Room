@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wellness Room Booking</title>
+
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 
 <style>
 :root{
@@ -13,9 +17,6 @@
   --orange4:#fb923c;
   --orange5:#f97316;
   --orange6:#ea580c;
-  --gray:#666;
-  --green:#dcfce7;
-  --red:#fecaca;
 }
 
 *{
@@ -26,7 +27,6 @@ body{
   margin:0;
   font-family:Arial,sans-serif;
   background:linear-gradient(to bottom right,var(--orange1),white);
-  color:#222;
 }
 
 header{
@@ -34,10 +34,6 @@ header{
   color:white;
   padding:25px;
   text-align:center;
-}
-
-header h1{
-  margin:0;
 }
 
 .container{
@@ -48,19 +44,27 @@ header h1{
 
 .card{
   background:white;
-  border-radius:14px;
   padding:20px;
+  border-radius:14px;
   margin-bottom:20px;
   box-shadow:0 2px 8px rgba(0,0,0,0.08);
 }
 
 .rules{
-  background:var(--orange1);
+  background:#fff7ed;
   border-left:5px solid var(--orange5);
 }
 
 .rules ol{
   line-height:1.7;
+}
+
+.connection{
+  background:#eff6ff;
+  padding:10px;
+  border-radius:8px;
+  color:#1d4ed8;
+  margin-bottom:15px;
 }
 
 .schedule{
@@ -70,7 +74,7 @@ header h1{
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:800px;
+  min-width:850px;
 }
 
 th,td{
@@ -94,13 +98,13 @@ th{
   display:flex;
   justify-content:center;
   align-items:center;
-  cursor:pointer;
   font-size:13px;
   transition:0.2s;
 }
 
 .available{
-  background:var(--green);
+  background:#dcfce7;
+  cursor:pointer;
 }
 
 .available:hover{
@@ -108,14 +112,14 @@ th{
 }
 
 .booked{
-  background:var(--orange3);
-  cursor:not-allowed;
+  background:#fdba74;
   font-weight:bold;
+  cursor:not-allowed;
 }
 
 .past{
   background:#eee;
-  color:#aaa;
+  color:#999;
   cursor:not-allowed;
 }
 
@@ -124,12 +128,6 @@ th{
   gap:20px;
   margin-top:15px;
   flex-wrap:wrap;
-}
-
-.legend div{
-  display:flex;
-  align-items:center;
-  gap:8px;
 }
 
 .swatch{
@@ -154,10 +152,10 @@ th{
 
 .modal-content{
   background:white;
-  padding:25px;
-  border-radius:16px;
   width:90%;
   max-width:500px;
+  border-radius:16px;
+  padding:25px;
 }
 
 .modal-content h2{
@@ -186,10 +184,6 @@ button{
   color:white;
 }
 
-.primary:hover{
-  background:var(--orange6);
-}
-
 .secondary{
   background:#eee;
 }
@@ -198,9 +192,8 @@ button{
   position:fixed;
   bottom:20px;
   right:20px;
-  background:#065f46;
-  color:white;
   padding:14px 18px;
+  color:white;
   border-radius:10px;
   display:none;
   z-index:2000;
@@ -208,14 +201,6 @@ button{
 
 .toast.show{
   display:block;
-}
-
-.connection{
-  background:#eff6ff;
-  color:#1d4ed8;
-  padding:10px;
-  border-radius:8px;
-  margin-bottom:15px;
 }
 </style>
 </head>
@@ -231,20 +216,22 @@ button{
 
   <div class="card rules">
     <h3>Room Rules</h3>
+
     <ol>
-      <li>Be respectful to the space and items.</li>
+      <li>Be respectful to the space and the items in it.</li>
       <li>Clean up after yourself.</li>
-      <li>Do not remove items from the room.</li>
+      <li>Do not take any items from the room.</li>
       <li>No inappropriate activities.</li>
-      <li>Respect your booking time.</li>
+      <li>Please respect your booking time.</li>
     </ol>
   </div>
 
   <div class="card">
+
     <h2>Available Slots</h2>
 
     <div class="connection" id="connectionStatus">
-      Connecting to shared booking system...
+      Connecting to booking system...
     </div>
 
     <div class="schedule">
@@ -256,34 +243,46 @@ button{
       <div><span class="swatch" style="background:#fdba74"></span> Booked</div>
       <div><span class="swatch" style="background:#eee"></span> Past</div>
     </div>
+
   </div>
 
 </div>
 
 <div class="modal" id="bookingModal">
+
   <div class="modal-content">
-    <h2>Book Slot</h2>
+
+    <h2>Book Wellness Room</h2>
 
     <div id="bookingInfo"></div>
 
     <input type="text" id="nameInput" placeholder="Full Name">
+
     <input type="text" id="njitInput" placeholder="8-digit NJIT ID">
+
     <input type="text" id="roomInput" placeholder="Room Number">
 
-    <button class="primary" onclick="confirmBooking()">Confirm Booking</button>
-    <button class="secondary" onclick="closeModal()">Cancel</button>
+    <button class="primary" onclick="confirmBooking()">
+      Confirm Booking
+    </button>
+
+    <button class="secondary" onclick="closeModal()">
+      Cancel
+    </button>
+
   </div>
+
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
+
 const API_URL =
-"https://script.google.com/macros/s/AKfycby81yY8LPEGCnXkr4muHzhIbPer7QSKgu-v7QkvRcAEdupFwteCrFNQibsjNYlwazK6PQ/exec";
+"https://script.google.com/macros/s/AKfycbxOsSi-tNG6Us44cWEic1nEvWMYO4zwtaCex64ZWxw4xY-4yYGqsl8cgn5hfFQRils-6A/exec";
 
 const START_HOUR = 9;
 const END_HOUR = 16;
-const SLOT_MIN = 30;
 
 let bookings = [];
 let pendingSlot = null;
@@ -295,8 +294,12 @@ function apiCall(action,payload={}){
     const cb = "jsonp_" + Date.now();
 
     window[cb] = function(data){
+
       delete window[cb];
-      document.body.removeChild(script);
+
+      if(script.parentNode){
+        document.body.removeChild(script);
+      }
 
       if(data.ok){
         resolve(data);
@@ -311,13 +314,15 @@ function apiCall(action,payload={}){
       API_URL +
       "?action=" + encodeURIComponent(action) +
       "&callback=" + encodeURIComponent(cb) +
-      "&data=" + encodeURIComponent(JSON.stringify(payload));
+      "&data=" + encodeURIComponent(JSON.stringify(payload)) +
+      "&nocache=" + Date.now();
 
     script.onerror = function(){
       reject("Could not connect to Apps Script.");
     };
 
     document.body.appendChild(script);
+
   });
 }
 
@@ -345,19 +350,10 @@ function formatTime(hour,min){
   const ampm = hour >= 12 ? "PM" : "AM";
 
   let h = hour % 12;
+
   if(h===0) h=12;
 
   return h + ":" + String(min).padStart(2,"0") + " " + ampm;
-}
-
-function slotTaken(date,hour,min){
-
-  return bookings.find(b =>
-    b.date === date &&
-    Number(b.hour) === Number(hour) &&
-    Number(b.min) === Number(min) &&
-    b.status === "Booked"
-  );
 }
 
 function isPast(date,hour,min){
@@ -371,6 +367,16 @@ function isPast(date,hour,min){
   return d < now;
 }
 
+function slotTaken(date,hour,min){
+
+  return bookings.find(b =>
+    b.date === date &&
+    Number(b.hour) === Number(hour) &&
+    Number(b.min) === Number(min) &&
+    b.status === "Booked"
+  );
+}
+
 async function loadBookings(){
 
   try{
@@ -379,15 +385,15 @@ async function loadBookings(){
 
     bookings = data.bookings || [];
 
-    document.getElementById("connectionStatus").innerText =
-      "Connected to shared booking system.";
+    document.getElementById("connectionStatus")
+      .innerText = "Connected to shared booking system.";
 
     renderSchedule();
 
   }catch(err){
 
-    document.getElementById("connectionStatus").innerText =
-      err;
+    document.getElementById("connectionStatus")
+      .innerText = err;
 
     toast(err,true);
   }
@@ -496,6 +502,7 @@ async function confirmBooking(){
   if(!name || !/^\d{8}$/.test(njit)){
 
     toast("Enter valid details",true);
+
     return;
   }
 
@@ -531,7 +538,8 @@ async function confirmBooking(){
 loadBookings();
 
 setInterval(loadBookings,30000);
+
 </script>
 
 </body>
-</html>
+</html>SS
