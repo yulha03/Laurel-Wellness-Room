@@ -1,545 +1,588 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
 <title>Wellness Room Booking</title>
-
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-
 <style>
-:root{
-  --orange1:#fff7ed;
-  --orange2:#ffedd5;
-  --orange3:#fdba74;
-  --orange4:#fb923c;
-  --orange5:#f97316;
-  --orange6:#ea580c;
-}
-
-*{
-  box-sizing:border-box;
-}
-
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:linear-gradient(to bottom right,var(--orange1),white);
-}
-
-header{
-  background:linear-gradient(135deg,var(--orange5),var(--orange6));
-  color:white;
-  padding:25px;
-  text-align:center;
-}
-
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:20px;
-}
-
-.card{
-  background:white;
-  padding:20px;
-  border-radius:14px;
-  margin-bottom:20px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.08);
-}
-
-.rules{
-  background:#fff7ed;
-  border-left:5px solid var(--orange5);
-}
-
-.rules ol{
-  line-height:1.7;
-}
-
-.connection{
-  background:#eff6ff;
-  padding:10px;
-  border-radius:8px;
-  color:#1d4ed8;
-  margin-bottom:15px;
-}
-
-.schedule{
-  overflow-x:auto;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:850px;
-}
-
-th,td{
-  border:1px solid #ddd;
-  text-align:center;
-}
-
-th{
-  background:var(--orange2);
-  padding:12px;
-}
-
-.time{
-  background:#fafafa;
-  width:120px;
-  font-weight:bold;
-}
-
-.slot{
-  height:50px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:13px;
-  transition:0.2s;
-}
-
-.available{
-  background:#dcfce7;
-  cursor:pointer;
-}
-
-.available:hover{
-  background:#bbf7d0;
-}
-
-.booked{
-  background:#fdba74;
-  font-weight:bold;
-  cursor:not-allowed;
-}
-
-.past{
-  background:#eee;
-  color:#999;
-  cursor:not-allowed;
-}
-
-.legend{
-  display:flex;
-  gap:20px;
-  margin-top:15px;
-  flex-wrap:wrap;
-}
-
-.swatch{
-  width:16px;
-  height:16px;
-  border-radius:4px;
-}
-
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.5);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:1000;
-}
-
-.modal.active{
-  display:flex;
-}
-
-.modal-content{
-  background:white;
-  width:90%;
-  max-width:500px;
-  border-radius:16px;
-  padding:25px;
-}
-
-.modal-content h2{
-  margin-top:0;
-  color:var(--orange6);
-}
-
-input{
-  width:100%;
-  padding:12px;
-  margin-bottom:12px;
-  border-radius:8px;
-  border:1px solid #ccc;
-}
-
-button{
-  padding:12px 18px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.primary{
-  background:var(--orange5);
-  color:white;
-}
-
-.secondary{
-  background:#eee;
-}
-
-.toast{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  padding:14px 18px;
-  color:white;
-  border-radius:10px;
-  display:none;
-  z-index:2000;
-}
-
-.toast.show{
-  display:block;
-}
+  :root{
+    --orange-50:#FFF7ED;--orange-100:#FFEDD5;--orange-200:#FED7AA;--orange-500:#F97316;
+    --orange-600:#EA580C;--orange-700:#C2410C;--orange-800:#9A3412;
+    --gray-100:#F4F4F5;--gray-200:#E4E4E7;--gray-300:#D4D4D8;--gray-500:#71717A;
+    --gray-700:#3F3F46;--gray-900:#18181B;
+    --green-50:#ECFDF5;--green-100:#D1FAE5;--green-700:#047857;
+    --red-100:#FEE2E2;--red-700:#B91C1C;
+    --blue-50:#EFF6FF;--blue-100:#DBEAFE;--blue-700:#1D4ED8;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;overflow-x:hidden;-webkit-text-size-adjust:100%;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    background:linear-gradient(135deg,var(--orange-50) 0%,#FFFFFF 100%);
+    color:var(--gray-900);min-height:100vh;
+  }
+  header{
+    background:linear-gradient(135deg,var(--orange-500),var(--orange-700));
+    color:white;padding:20px 16px;
+    box-shadow:0 4px 12px rgba(234,88,12,0.2);
+  }
+  header .container{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:0;}
+  header h1{margin:0 0 4px 0;font-size:24px;font-weight:700;letter-spacing:-0.5px;}
+  header p{margin:0;opacity:0.95;font-size:13px;}
+  .header-actions{display:flex;gap:6px;flex-wrap:wrap;}
+  .header-btn{
+    background:rgba(255,255,255,0.18);color:white;
+    border:1px solid rgba(255,255,255,0.35);
+    padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;
+    cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent;
+  }
+  .header-btn.active{background:white;color:var(--orange-700);}
+  .container{max-width:1100px;margin:0 auto;padding:16px;}
+  .card{background:white;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border:1px solid var(--orange-100);margin-bottom:16px;}
+  .card h2{margin:0 0 14px 0;color:var(--orange-700);font-size:18px;font-weight:700;display:flex;align-items:center;gap:10px;}
+  .card h2 .icon{background:var(--orange-100);width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:16px;}
+  .rules{background:var(--orange-50);border-left:4px solid var(--orange-500);padding:18px;border-radius:8px;border-top-left-radius:0;border-bottom-left-radius:0;}
+  .rules p{margin:0 0 10px 0;font-weight:600;color:var(--orange-800);}
+  .rules ol{margin:0;padding-left:20px;line-height:1.65;color:var(--gray-700);font-size:14px;}
+  .rules .warning{margin-top:12px;padding:10px 12px;background:var(--orange-100);border-radius:6px;font-size:13px;color:var(--orange-800);font-weight:500;}
+  .controls{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center;}
+  select,input{
+    padding:10px 12px;border:1.5px solid var(--gray-200);border-radius:8px;
+    font-size:16px;font-family:inherit;background:white;width:100%;max-width:100%;
+  }
+  select:focus,input:focus{outline:none;border-color:var(--orange-500);box-shadow:0 0 0 3px var(--orange-100);}
+  .week-nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .week-label{font-weight:600;color:var(--gray-700);font-size:13px;text-align:center;flex:1;min-width:140px;}
+  .schedule{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:8px;border:1px solid var(--gray-200);}
+  table.schedule-table{width:100%;border-collapse:collapse;min-width:560px;font-size:12px;}
+  table.schedule-table th,table.schedule-table td{border:1px solid var(--gray-200);padding:0;text-align:center;vertical-align:middle;}
+  table.schedule-table th{background:var(--orange-100);color:var(--orange-800);font-weight:700;padding:10px 4px;font-size:12px;}
+  table.schedule-table th.time-col{width:110px;background:var(--orange-50);}
+  table.schedule-table td.time-cell{background:var(--orange-50);color:var(--gray-700);font-weight:600;padding:6px 4px;font-size:11px;}
+  .slot{height:46px;cursor:pointer;background:white;color:var(--gray-500);font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;}
+  .slot.available{background:var(--green-50);color:var(--green-700);}
+  .slot.taken{background:var(--orange-200);color:var(--orange-800);cursor:not-allowed;font-weight:600;}
+  .slot.past{background:var(--gray-100);color:var(--gray-300);cursor:not-allowed;}
+  .legend{display:flex;gap:12px;margin-top:10px;font-size:12px;color:var(--gray-700);flex-wrap:wrap;}
+  .legend-item{display:flex;align-items:center;gap:5px;}
+  .legend-swatch{width:14px;height:14px;border-radius:4px;border:1px solid var(--gray-200);}
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:1000;padding:14px;}
+  .modal-overlay.active{display:flex;}
+  .modal{background:white;border-radius:14px;padding:22px;max-width:500px;width:100%;max-height:92vh;overflow-y:auto;box-shadow:0 20px 50px rgba(0,0,0,0.25);}
+  .modal h3{margin:0 0 6px 0;color:var(--orange-700);font-size:20px;}
+  .modal .booking-info{background:var(--orange-50);border-radius:8px;padding:10px 12px;margin-bottom:14px;font-size:13px;color:var(--orange-800);border-left:3px solid var(--orange-500);border-top-left-radius:0;border-bottom-left-radius:0;}
+  .form-group{margin-bottom:12px;}
+  .form-group label{display:block;font-weight:600;margin-bottom:5px;font-size:13px;color:var(--gray-700);}
+  .form-group .hint{font-size:11px;color:var(--gray-500);margin-top:3px;}
+  .checkbox-group{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;background:var(--orange-50);padding:11px;border-radius:8px;}
+  .checkbox-group input[type="checkbox"]{margin-top:3px;width:18px;height:18px;accent-color:var(--orange-600);flex-shrink:0;}
+  .checkbox-group label{font-size:13px;color:var(--gray-700);line-height:1.45;cursor:pointer;}
+  .button-row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;}
+  button{padding:11px 16px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent;}
+  .btn-primary{background:var(--orange-600);color:white;flex:1;min-width:120px;}
+  .btn-secondary{background:var(--gray-100);color:var(--gray-700);}
+  .btn-danger{background:var(--red-100);color:var(--red-700);}
+  .btn-icon{background:var(--orange-100);color:var(--orange-700);padding:8px 12px;font-size:13px;}
+  .status-badge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;}
+  .status-Booked{background:var(--blue-100);color:var(--blue-700);}
+  .status-Cancelled{background:var(--red-100);color:var(--red-700);}
+  .status-Completed{background:var(--green-100);color:var(--green-700);}
+  .empty-state{text-align:center;padding:24px 16px;color:var(--gray-500);font-size:14px;}
+  .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(20px);background:#065F46;color:white;padding:12px 18px;border-radius:10px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,0.2);z-index:2000;opacity:0;transition:all 0.25s;pointer-events:none;max-width:90vw;text-align:center;font-size:14px;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .toast.error{background:#991B1B;}
+  .staff-banner{background:var(--blue-50);border:1px solid var(--blue-100);color:var(--blue-700);padding:11px 14px;border-radius:8px;margin-bottom:14px;font-size:13px;font-weight:600;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center;}
+  .filters input,.filters select{flex:1;min-width:140px;}
+  table.bookings-table{width:100%;border-collapse:collapse;font-size:12px;min-width:600px;}
+  table.bookings-table th,table.bookings-table td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--gray-200);}
+  table.bookings-table th{background:var(--orange-50);color:var(--orange-800);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.4px;}
+  table.bookings-table .actions{display:flex;gap:5px;flex-wrap:wrap;}
+  table.bookings-table .actions button{padding:5px 9px;font-size:11px;}
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--gray-200);border-radius:8px;}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:14px;}
+  .stat-card{background:white;border:1px solid var(--orange-100);border-radius:10px;padding:12px;text-align:center;}
+  .stat-card .num{font-size:24px;font-weight:800;color:var(--orange-700);}
+  .stat-card .lbl{font-size:11px;color:var(--gray-500);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;}
+  footer{text-align:center;padding:18px;color:var(--gray-500);font-size:12px;}
+  .hidden{display:none !important;}
+  .loading{display:inline-block;width:14px;height:14px;border:2px solid var(--orange-200);border-top-color:var(--orange-600);border-radius:50%;animation:spin 0.8s linear infinite;vertical-align:middle;margin-right:6px;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  @media (max-width:600px){
+    header{padding:16px 12px;}
+    header h1{font-size:20px;}
+    header p{font-size:12px;}
+    .container{padding:12px;}
+    .card{padding:16px;}
+    .header-btn{padding:7px 11px;font-size:12px;}
+  }
 </style>
 </head>
-
 <body>
 
 <header>
-  <h1>Wellness Room Booking</h1>
-  <p>Reserve a peaceful 30-minute session</p>
+  <div class="container">
+    <div>
+      <h1>Wellness Room Booking</h1>
+      <p>Reserve your 30-minute session, Mon &ndash; Fri, 9:00 AM &ndash; 4:00 PM</p>
+    </div>
+    <div class="header-actions">
+      <button class="header-btn" id="navStudent">Booking</button>
+      <button class="header-btn" id="navMyBookings">My Booking</button>
+      <button class="header-btn" id="navStaff">Staff Login</button>
+    </div>
+  </div>
 </header>
 
-<div class="container">
-
+<div class="container view" id="studentView">
   <div class="card rules">
-    <h3>Room Rules</h3>
-
+    <p>Please read before entering:</p>
     <ol>
-      <li>Be respectful to the space and the items in it.</li>
-      <li>Clean up after yourself.</li>
-      <li>Do not take any items from the room.</li>
-      <li>No inappropriate activities.</li>
-      <li>Please respect your booking time.</li>
+      <li>Be respectful to the space and the items in it;</li>
+      <li>Clean up after yourself;</li>
+      <li>Do not take out any items from the Wellness Room, save for the coffee/tea you make;</li>
+      <li>Absolutely no inappropriate activities in the Wellness Room;</li>
+      <li>No extra time outside of the 30 minute booked slot, unless discussed prior.</li>
     </ol>
+    <div class="warning">
+      Failure to abide by these rules will result in disciplinary actions with the Residence Life staff.
+    </div>
   </div>
 
   <div class="card">
-
-    <h2>Available Slots</h2>
-
-    <div class="connection" id="connectionStatus">
-      Connecting to booking system...
+    <h2><span class="icon">&#128197;</span> Available Slots</h2>
+    <div class="controls">
+      <div class="week-nav">
+        <button class="btn-icon" id="prevWeek">&#9664; Prev</button>
+        <span class="week-label" id="weekLabel"></span>
+        <button class="btn-icon" id="nextWeek">Next &#9654;</button>
+      </div>
     </div>
-
-    <div class="schedule">
-      <table id="scheduleTable"></table>
-    </div>
-
+    <div class="schedule"><table class="schedule-table" id="scheduleTable"></table></div>
     <div class="legend">
-      <div><span class="swatch" style="background:#dcfce7"></span> Available</div>
-      <div><span class="swatch" style="background:#fdba74"></span> Booked</div>
-      <div><span class="swatch" style="background:#eee"></span> Past</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:var(--green-50);"></span> Available</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:var(--orange-200);"></span> Booked</div>
+      <div class="legend-item"><span class="legend-swatch" style="background:var(--gray-100);"></span> Past / Unavailable</div>
     </div>
-
   </div>
-
 </div>
 
-<div class="modal" id="bookingModal">
-
-  <div class="modal-content">
-
-    <h2>Book Wellness Room</h2>
-
-    <div id="bookingInfo"></div>
-
-    <input type="text" id="nameInput" placeholder="Full Name">
-
-    <input type="text" id="njitInput" placeholder="8-digit NJIT ID">
-
-    <input type="text" id="roomInput" placeholder="Room Number">
-
-    <button class="primary" onclick="confirmBooking()">
-      Confirm Booking
-    </button>
-
-    <button class="secondary" onclick="closeModal()">
-      Cancel
-    </button>
-
+<div class="container view hidden" id="myBookingsView">
+  <div class="card">
+    <h2><span class="icon">&#128270;</span> Find My Booking</h2>
+    <p style="color:var(--gray-500);margin-top:0;font-size:13px;">Enter your NJIT ID to view and cancel your bookings.</p>
+    <div class="filters">
+      <input type="text" id="lookupNjit" placeholder="8-digit NJIT ID" maxlength="8" inputmode="numeric" />
+      <button class="btn-primary" style="flex:0 0 auto;" id="lookupBtn">Look Up</button>
+    </div>
+    <div id="myBookingsResults"></div>
   </div>
+</div>
 
+<div class="container view hidden" id="staffView">
+  <div class="staff-banner">
+    <span>Logged in as Staff</span>
+    <button class="btn-secondary" id="logoutBtn">Log Out</button>
+  </div>
+  <div class="stats" id="statsRow"></div>
+  <div class="card">
+    <h2><span class="icon">&#128736;</span> All Bookings</h2>
+    <div class="filters">
+      <input type="text" id="staffSearch" placeholder="Search by name or NJIT ID..." />
+      <select id="staffStatusFilter">
+        <option value="all">All statuses</option>
+        <option value="Booked">Booked</option>
+        <option value="Cancelled">Cancelled</option>
+        <option value="Completed">Completed</option>
+      </select>
+      <button class="btn-icon" id="exportBtn">Export CSV</button>
+    </div>
+    <div class="table-wrap"><table class="bookings-table" id="staffTable"></table></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal">
+    <h3>Book Wellness Room</h3>
+    <div class="booking-info" id="bookingInfo"></div>
+    <form id="bookingForm">
+      <div class="form-group"><label for="nameInput">Full Name</label><input type="text" id="nameInput" required placeholder="Enter your full name" /></div>
+      <div class="form-group"><label for="njitInput">NJIT ID Number</label><input type="text" id="njitInput" required pattern="\d{8}" maxlength="8" inputmode="numeric" placeholder="8-digit NJIT ID" /><div class="hint">Must be exactly 8 digits</div></div>
+      <div class="form-group"><label for="roomNumInput">Your Dorm Room Number</label><input type="text" id="roomNumInput" required placeholder="e.g. 312B" /></div>
+      <div class="checkbox-group"><input type="checkbox" id="agreeRules" required /><label for="agreeRules">I have read and agree to abide by all of the Wellness Room rules listed above.</label></div>
+      <div class="checkbox-group"><input type="checkbox" id="agreeLiability" required /><label for="agreeLiability">I acknowledge and agree that I will not hold Residence Life liable for any damage to personal property or for any bodily injury that may occur while using the space.</label></div>
+      <div class="button-row">
+        <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
+        <button type="submit" class="btn-primary" id="confirmBtn">Confirm Booking</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <h3>Staff Login</h3>
+    <p style="color:var(--gray-500);margin-top:0;font-size:13px;">Enter your staff credentials to access the booking dashboard.</p>
+    <form id="loginForm">
+      <div class="form-group"><label for="loginUser">Email</label><input type="email" id="loginUser" required autocomplete="username" /></div>
+      <div class="form-group"><label for="loginPass">Password</label><input type="password" id="loginPass" required autocomplete="current-password" /></div>
+      <div class="button-row">
+        <button type="button" class="btn-secondary" id="loginCancelBtn">Cancel</button>
+        <button type="submit" class="btn-primary">Log In</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <h3>Edit Booking</h3>
+    <form id="editForm">
+      <input type="hidden" id="editId" />
+      <div class="form-group"><label>Name</label><input type="text" id="editName" required /></div>
+      <div class="form-group"><label>NJIT ID</label><input type="text" id="editNjit" required pattern="\d{8}" maxlength="8" inputmode="numeric" /></div>
+      <div class="form-group"><label>Dorm Room Number</label><input type="text" id="editRoomNum" /></div>
+      <div class="form-group"><label>Date</label><input type="date" id="editDate" required /></div>
+      <div class="form-group"><label>Time</label><select id="editTime" required></select></div>
+      <div class="form-group"><label>Status</label><select id="editStatus" required><option value="Booked">Booked</option><option value="Cancelled">Cancelled</option><option value="Completed">Completed</option></select></div>
+      <div class="button-row">
+        <button type="button" class="btn-secondary" id="editCancelBtn">Cancel</button>
+        <button type="submit" class="btn-primary">Save Changes</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
+<footer>Wellness Room Booking System &middot; Residence Life</footer>
 
 <script>
+  var APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxOsSi-tNG6Us44cWEic1nEvWMYO4zwtaCex64ZWxw4xY-4yYGqsl8cgn5hfFQRils-6A/exec";
 
-const API_URL =
-"https://script.google.com/macros/s/AKfycbxOsSi-tNG6Us44cWEic1nEvWMYO4zwtaCex64ZWxw4xY-4yYGqsl8cgn5hfFQRils-6A/exec";
+  var START_HOUR = 9, END_HOUR = 16, SLOT_MINUTES = 30;
+  var SESSION_KEY = 'wellnessStaffSession';
+  var STAFF_CREDS = { user: 'laurelhall06@gmail.com', pass: 'LaurelWellness@2026' };
 
-const START_HOUR = 9;
-const END_HOUR = 16;
+  var bookings = [];
+  var weekOffset = 0;
+  var pendingSlot = null;
+  var staffLoggedIn = sessionStorage.getItem(SESSION_KEY) === 'yes';
+  var currentView = 'student';
+  var lookupNjit = '';
 
-let bookings = [];
-let pendingSlot = null;
-
-function apiCall(action,payload={}){
-
-  return new Promise((resolve,reject)=>{
-
-    const cb = "jsonp_" + Date.now();
-
-    window[cb] = function(data){
-
-      delete window[cb];
-
-      if(script.parentNode){
-        document.body.removeChild(script);
-      }
-
-      if(data.ok){
-        resolve(data);
-      }else{
-        reject(data.error || "Unknown error");
-      }
-    };
-
-    const script = document.createElement("script");
-
-    script.src =
-      API_URL +
-      "?action=" + encodeURIComponent(action) +
-      "&callback=" + encodeURIComponent(cb) +
-      "&data=" + encodeURIComponent(JSON.stringify(payload)) +
-      "&nocache=" + Date.now();
-
-    script.onerror = function(){
-      reject("Could not connect to Apps Script.");
-    };
-
-    document.body.appendChild(script);
-
-  });
-}
-
-function toast(msg,error=false){
-
-  const t = document.getElementById("toast");
-
-  t.innerText = msg;
-
-  t.style.background = error ? "#991b1b" : "#065f46";
-
-  t.classList.add("show");
-
-  setTimeout(()=>{
-    t.classList.remove("show");
-  },3000);
-}
-
-function formatDate(d){
-  return d.toISOString().split("T")[0];
-}
-
-function formatTime(hour,min){
-
-  const ampm = hour >= 12 ? "PM" : "AM";
-
-  let h = hour % 12;
-
-  if(h===0) h=12;
-
-  return h + ":" + String(min).padStart(2,"0") + " " + ampm;
-}
-
-function isPast(date,hour,min){
-
-  const now = new Date();
-
-  const d = new Date(date);
-
-  d.setHours(hour,min,0,0);
-
-  return d < now;
-}
-
-function slotTaken(date,hour,min){
-
-  return bookings.find(b =>
-    b.date === date &&
-    Number(b.hour) === Number(hour) &&
-    Number(b.min) === Number(min) &&
-    b.status === "Booked"
-  );
-}
-
-async function loadBookings(){
-
-  try{
-
-    const data = await apiCall("listBookings");
-
-    bookings = data.bookings || [];
-
-    document.getElementById("connectionStatus")
-      .innerText = "Connected to shared booking system.";
-
-    renderSchedule();
-
-  }catch(err){
-
-    document.getElementById("connectionStatus")
-      .innerText = err;
-
-    toast(err,true);
-  }
-}
-
-function renderSchedule(){
-
-  const table = document.getElementById("scheduleTable");
-
-  let html = "<thead><tr><th>Time</th>";
-
-  const days = [];
-
-  for(let i=0;i<7;i++){
-
-    const d = new Date();
-
-    d.setDate(d.getDate()+i);
-
-    days.push(d);
-
-    html += `<th>${d.toDateString()}</th>`;
+  function jsonp(action, data) {
+    return new Promise(function(resolve, reject) {
+      var cbName = 'cb_' + Date.now() + '_' + Math.floor(Math.random()*1e6);
+      var url = APP_SCRIPT_URL + '?action=' + encodeURIComponent(action) + '&callback=' + cbName;
+      if (data) url += '&data=' + encodeURIComponent(JSON.stringify(data));
+      var script = document.createElement('script');
+      var timeout = setTimeout(function(){ cleanup(); reject(new Error('Network timeout. Check your connection.')); }, 15000);
+      window[cbName] = function(res) { cleanup(); resolve(res); };
+      function cleanup() { clearTimeout(timeout); try { delete window[cbName]; } catch(e){ window[cbName]=undefined; } if (script.parentNode) script.parentNode.removeChild(script); }
+      script.onerror = function() { cleanup(); reject(new Error('Could not reach the server.')); };
+      script.src = url;
+      document.body.appendChild(script);
+    });
   }
 
-  html += "</tr></thead><tbody>";
-
-  for(let h=START_HOUR; h<END_HOUR; h++){
-
-    for(let m=0; m<60; m+=30){
-
-      html += "<tr>";
-
-      html += `<td class="time">${formatTime(h,m)}</td>`;
-
-      days.forEach(d=>{
-
-        const date = formatDate(d);
-
-        const taken = slotTaken(date,h,m);
-
-        const past = isPast(date,h,m);
-
-        let cls = "available";
-        let text = "Available";
-
-        if(taken){
-          cls = "booked";
-          text = "Booked";
-        }
-
-        if(past){
-          cls = "past";
-          text = "—";
-        }
-
-        html += `
-        <td>
-          <div
-            class="slot ${cls}"
-            onclick="selectSlot('${date}',${h},${m},'${cls}')"
-          >
-            ${text}
-          </div>
-        </td>`;
-      });
-
-      html += "</tr>";
+  async function refreshBookings() {
+    try {
+      var res = await jsonp('listBookings');
+      if (res && res.ok) bookings = res.bookings || [];
+    } catch (e) {
+      toast(e.message || 'Network error.', true);
     }
   }
 
-  html += "</tbody>";
+  function startOfWeek(date){var d=new Date(date);d.setHours(0,0,0,0);var day=d.getDay();var diff=(day===0?-6:1-day);d.setDate(d.getDate()+diff);return d;}
+  function addDays(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x;}
+  function fmtDateISO(d){var y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),da=String(d.getDate()).padStart(2,'0');return y+'-'+m+'-'+da;}
+  function fmtDateShort(d){return d.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});}
+  function fmtTime12(h,m){var ap=h>=12?'PM':'AM';var hh=((h+11)%12)+1;return hh+':'+String(m).padStart(2,'0')+' '+ap;}
+  function fmtTimeRange(h,m){var s=fmtTime12(h,m),eh=h,em=m+SLOT_MINUTES;if(em>=60){eh++;em-=60;}return s+' \u2013 '+fmtTime12(eh,em);}
+  function timeSlots(){var o=[];for(var h=START_HOUR;h<END_HOUR;h++){o.push({hour:h,min:0});o.push({hour:h,min:30});}return o;}
+  function slotDateTime(b){var d=new Date(b.date+'T00:00:00');d.setHours(Number(b.hour),Number(b.min),0,0);return d;}
+  function slotEndDateTime(b){var d=slotDateTime(b);d.setMinutes(d.getMinutes()+SLOT_MINUTES);return d;}
+  function isSlotPastTime(dateISO,h,m){var n=new Date();var s=new Date(dateISO+'T00:00:00');s.setHours(h,m,0,0);return s<n;}
+  function activeBookingFor(dateISO,h,m){return bookings.find(function(b){return b.date===dateISO&&Number(b.hour)===h&&Number(b.min)===m&&b.status==='Booked';});}
+  function escapeHtml(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]);});}
 
-  table.innerHTML = html;
-}
-
-function selectSlot(date,hour,min,status){
-
-  if(status !== "available") return;
-
-  pendingSlot = {date,hour,min};
-
-  document.getElementById("bookingInfo").innerHTML =
-    `<b>${date}</b><br>${formatTime(hour,min)}`;
-
-  document.getElementById("bookingModal")
-    .classList.add("active");
-}
-
-function closeModal(){
-
-  document.getElementById("bookingModal")
-    .classList.remove("active");
-}
-
-async function confirmBooking(){
-
-  const name =
-    document.getElementById("nameInput").value.trim();
-
-  const njit =
-    document.getElementById("njitInput").value.trim();
-
-  const room =
-    document.getElementById("roomInput").value.trim();
-
-  if(!name || !/^\d{8}$/.test(njit)){
-
-    toast("Enter valid details",true);
-
-    return;
+  function setView(v) {
+    currentView = v;
+    document.getElementById('studentView').classList.toggle('hidden', v !== 'student');
+    document.getElementById('myBookingsView').classList.toggle('hidden', v !== 'mybookings');
+    document.getElementById('staffView').classList.toggle('hidden', v !== 'staff');
+    document.getElementById('navStudent').classList.toggle('active', v === 'student');
+    document.getElementById('navMyBookings').classList.toggle('active', v === 'mybookings');
+    document.getElementById('navStaff').classList.toggle('active', v === 'staff');
+    if (v === 'student') renderSchedule();
+    if (v === 'mybookings') renderMyBookings();
+    if (v === 'staff') renderStaff();
   }
 
-  try{
-
-    await apiCall("createBooking",{
-      booking:{
-        date:pendingSlot.date,
-        hour:pendingSlot.hour,
-        min:pendingSlot.min,
-        name:name,
-        njit:njit,
-        roomNumber:room
-      }
+  function renderSchedule() {
+    var weekStart = addDays(startOfWeek(new Date()), weekOffset * 7);
+    var days = [0,1,2,3,4].map(function(i){return addDays(weekStart,i);});
+    document.getElementById('weekLabel').textContent =
+      days[0].toLocaleDateString(undefined,{month:'short',day:'numeric'})+' \u2013 '+days[4].toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+    var html = '<thead><tr><th class="time-col">Time</th>';
+    days.forEach(function(d){html+='<th>'+fmtDateShort(d)+'</th>';});
+    html += '</tr></thead><tbody>';
+    timeSlots().forEach(function(s){
+      html+='<tr><td class="time-cell">'+fmtTimeRange(s.hour,s.min)+'</td>';
+      days.forEach(function(d){
+        var iso=fmtDateISO(d), past=isSlotPastTime(iso,s.hour,s.min), act=activeBookingFor(iso,s.hour,s.min);
+        var cls='slot ', label='Available', click=false;
+        if(act){cls+='taken';label='Booked';}
+        else if(past){cls+='past';label='\u2014';}
+        else{cls+='available';click=true;}
+        html+='<td><div class="'+cls+'" data-date="'+iso+'" data-hour="'+s.hour+'" data-min="'+s.min+'" '+(click?'data-clickable="1"':'')+'>'+label+'</div></td>';
+      });
+      html+='</tr>';
     });
-
-    toast("Booking confirmed!");
-
-    closeModal();
-
-    document.getElementById("nameInput").value = "";
-    document.getElementById("njitInput").value = "";
-    document.getElementById("roomInput").value = "";
-
-    await loadBookings();
-
-  }catch(err){
-
-    toast(err,true);
+    html+='</tbody>';
+    var table = document.getElementById('scheduleTable');
+    table.innerHTML = html;
+    var els = table.querySelectorAll('[data-clickable="1"]');
+    for (var i=0;i<els.length;i++) {
+      (function(el){el.addEventListener('click',function(){
+        pendingSlot={date:el.dataset.date,hour:parseInt(el.dataset.hour,10),min:parseInt(el.dataset.min,10)};
+        openBookingModal();
+      });})(els[i]);
+    }
   }
-}
 
-loadBookings();
+  function openBookingModal() {
+    if (!pendingSlot) return;
+    var d = new Date(pendingSlot.date+'T00:00:00');
+    document.getElementById('bookingInfo').innerHTML = '<strong>Wellness Room</strong><br>'+fmtDateShort(d)+' \u00b7 '+fmtTimeRange(pendingSlot.hour,pendingSlot.min);
+    document.getElementById('bookingModal').classList.add('active');
+  }
+  function closeBookingModal() {
+    document.getElementById('bookingModal').classList.remove('active');
+    document.getElementById('bookingForm').reset();
+    pendingSlot = null;
+    document.getElementById('confirmBtn').disabled = false;
+    document.getElementById('confirmBtn').innerHTML = 'Confirm Booking';
+  }
 
-setInterval(loadBookings,30000);
+  document.getElementById('bookingForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    if (!pendingSlot) return;
+    var name=document.getElementById('nameInput').value.trim();
+    var njit=document.getElementById('njitInput').value.trim();
+    var roomNum=document.getElementById('roomNumInput').value.trim();
+    if(!/^\d{8}$/.test(njit)){toast('NJIT ID must be exactly 8 digits.',true);return;}
+    if(!document.getElementById('agreeRules').checked||!document.getElementById('agreeLiability').checked){toast('You must agree to both statements.',true);return;}
+    var btn = document.getElementById('confirmBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="loading"></span>Booking...';
+    try {
+      var res = await jsonp('createBooking', { booking: { date: pendingSlot.date, hour: pendingSlot.hour, min: pendingSlot.min, name: name, njit: njit, roomNumber: roomNum }});
+      if (!res.ok) { toast(res.error || 'Could not book.', true); btn.disabled=false; btn.innerHTML='Confirm Booking'; return; }
+      bookings = res.bookings || bookings;
+      toast('Booking confirmed! See you in the Wellness Room.');
+      closeBookingModal();
+      renderSchedule();
+    } catch (err) {
+      toast(err.message || 'Network error.', true);
+      btn.disabled = false;
+      btn.innerHTML = 'Confirm Booking';
+    }
+  });
+  document.getElementById('cancelBtn').addEventListener('click', closeBookingModal);
+  document.getElementById('bookingModal').addEventListener('click', function(e){ if(e.target.id==='bookingModal') closeBookingModal(); });
+  document.getElementById('prevWeek').addEventListener('click', function(){ weekOffset--; renderSchedule(); });
+  document.getElementById('nextWeek').addEventListener('click', function(){ weekOffset++; renderSchedule(); });
+  document.getElementById('njitInput').addEventListener('input', function(e){ e.target.value=e.target.value.replace(/\D/g,'').slice(0,8); });
 
+  document.getElementById('lookupNjit').addEventListener('input', function(e){ e.target.value=e.target.value.replace(/\D/g,'').slice(0,8); });
+  document.getElementById('lookupBtn').addEventListener('click', async function(){
+    var v=document.getElementById('lookupNjit').value.trim();
+    if(!/^\d{8}$/.test(v)){toast('Enter a valid 8-digit NJIT ID.',true);return;}
+    lookupNjit=v;
+    await refreshBookings();
+    renderMyBookings();
+  });
+
+  function renderMyBookings() {
+    var out = document.getElementById('myBookingsResults');
+    if (!lookupNjit) { out.innerHTML=''; return; }
+    var mine = bookings.filter(function(b){return String(b.njit)===lookupNjit;}).sort(function(a,b){return slotDateTime(b)-slotDateTime(a);});
+    if (mine.length===0) { out.innerHTML='<div class="empty-state">No bookings found for NJIT #'+escapeHtml(lookupNjit)+'.</div>'; return; }
+    out.innerHTML='<div class="table-wrap" style="margin-top:12px;"><table class="bookings-table">'+
+      '<thead><tr><th>Status</th><th>Date</th><th>Time</th><th>Name</th><th>Action</th></tr></thead><tbody>'+
+      mine.map(function(b){
+        var d=new Date(b.date+'T00:00:00');
+        var canCancel = b.status==='Booked' && slotDateTime(b)>new Date();
+        return '<tr><td><span class="status-badge status-'+b.status+'">'+b.status+'</span></td>'+
+          '<td>'+fmtDateShort(d)+'</td><td>'+fmtTimeRange(Number(b.hour),Number(b.min))+'</td>'+
+          '<td>'+escapeHtml(b.name)+'</td>'+
+          '<td>'+(canCancel?'<button class="btn-danger" data-cancel="'+b.id+'">Cancel</button>':'<span style="color:var(--gray-300);">\u2014</span>')+'</td></tr>';
+      }).join('')+'</tbody></table></div>';
+    var btns = out.querySelectorAll('[data-cancel]');
+    for (var i=0;i<btns.length;i++) {
+      (function(btn){btn.addEventListener('click', async function(){
+        var id=btn.getAttribute('data-cancel');
+        if(!confirm('Cancel this booking? This cannot be undone.')) return;
+        btn.disabled=true; btn.innerHTML='<span class="loading"></span>';
+        try {
+          var res = await jsonp('cancelBooking',{id:id, cancelledBy:'student'});
+          if (res.ok) { bookings=res.bookings||bookings; toast('Booking cancelled.'); renderMyBookings(); }
+          else { toast(res.error||'Could not cancel.',true); btn.disabled=false; btn.innerHTML='Cancel'; }
+        } catch(e) { toast(e.message,true); btn.disabled=false; btn.innerHTML='Cancel'; }
+      });})(btns[i]);
+    }
+  }
+
+  function openLoginModal(){ document.getElementById('loginModal').classList.add('active'); }
+  function closeLoginModal(){ document.getElementById('loginModal').classList.remove('active'); document.getElementById('loginForm').reset(); }
+  document.getElementById('loginCancelBtn').addEventListener('click', closeLoginModal);
+  document.getElementById('loginModal').addEventListener('click', function(e){ if(e.target.id==='loginModal') closeLoginModal(); });
+  document.getElementById('loginForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var u=document.getElementById('loginUser').value.trim().toLowerCase();
+    var p=document.getElementById('loginPass').value;
+    if (u===STAFF_CREDS.user.toLowerCase() && p===STAFF_CREDS.pass) {
+      staffLoggedIn=true; sessionStorage.setItem(SESSION_KEY,'yes');
+      closeLoginModal(); setView('staff'); toast('Welcome, staff member.');
+    } else { toast('Invalid credentials.',true); }
+  });
+  document.getElementById('logoutBtn').addEventListener('click', function(){
+    staffLoggedIn=false; sessionStorage.removeItem(SESSION_KEY);
+    setView('student'); toast('Logged out.');
+  });
+
+  async function renderStaff() {
+    if (!staffLoggedIn) { setView('student'); openLoginModal(); return; }
+    await refreshBookings();
+    var total=bookings.length;
+    var booked=bookings.filter(function(b){return b.status==='Booked';}).length;
+    var completed=bookings.filter(function(b){return b.status==='Completed';}).length;
+    var cancelled=bookings.filter(function(b){return b.status==='Cancelled';}).length;
+    document.getElementById('statsRow').innerHTML=
+      '<div class="stat-card"><div class="num">'+total+'</div><div class="lbl">Total</div></div>'+
+      '<div class="stat-card"><div class="num">'+booked+'</div><div class="lbl">Booked</div></div>'+
+      '<div class="stat-card"><div class="num">'+completed+'</div><div class="lbl">Completed</div></div>'+
+      '<div class="stat-card"><div class="num">'+cancelled+'</div><div class="lbl">Cancelled</div></div>';
+    renderStaffTable();
+  }
+
+  function renderStaffTable() {
+    var search=document.getElementById('staffSearch').value.trim().toLowerCase();
+    var statusF=document.getElementById('staffStatusFilter').value;
+    var list=bookings.slice().sort(function(a,b){return slotDateTime(b)-slotDateTime(a);});
+    if(statusF!=='all') list=list.filter(function(b){return b.status===statusF;});
+    if(search) list=list.filter(function(b){return (b.name||'').toLowerCase().includes(search)||(b.njit||'').includes(search);});
+    var table=document.getElementById('staffTable');
+    if (list.length===0) {
+      table.innerHTML='<thead><tr><th>Date</th><th>Time</th><th>Name</th><th>NJIT ID</th><th>Dorm Room</th><th>Status</th><th>Actions</th></tr></thead><tbody><tr><td colspan="7" style="text-align:center;color:var(--gray-500);padding:24px;">No bookings match these filters.</td></tr></tbody>';
+      return;
+    }
+    table.innerHTML='<thead><tr><th>Date</th><th>Time</th><th>Name</th><th>NJIT ID</th><th>Dorm Room</th><th>Status</th><th>Actions</th></tr></thead><tbody>'+
+      list.map(function(b){
+        var d=new Date(b.date+'T00:00:00');
+        return '<tr><td>'+fmtDateShort(d)+'</td><td>'+fmtTimeRange(Number(b.hour),Number(b.min))+'</td>'+
+          '<td>'+escapeHtml(b.name)+'</td><td>'+escapeHtml(b.njit)+'</td><td>'+escapeHtml(b.roomNumber||'')+'</td>'+
+          '<td><span class="status-badge status-'+b.status+'">'+b.status+'</span></td>'+
+          '<td><div class="actions">'+
+            '<button class="btn-icon" data-edit="'+b.id+'">Edit</button>'+
+            (b.status==='Booked'?'<button class="btn-danger" data-cancel="'+b.id+'">Cancel</button>':'')+
+            (b.status==='Booked'?'<button class="btn-secondary" data-complete="'+b.id+'">Done</button>':'')+
+            '<button class="btn-secondary" data-delete="'+b.id+'">Delete</button>'+
+          '</div></td></tr>';
+      }).join('')+'</tbody>';
+    bindStaffActions(table);
+  }
+
+  function bindStaffActions(table) {
+    table.querySelectorAll('[data-edit]').forEach(function(b){ b.addEventListener('click', function(){ openEditModal(b.getAttribute('data-edit')); }); });
+    table.querySelectorAll('[data-cancel]').forEach(function(b){ b.addEventListener('click', async function(){
+      if(!confirm('Cancel this booking?')) return;
+      var res = await jsonp('cancelBooking',{id:b.getAttribute('data-cancel'), cancelledBy:'staff'});
+      if(res.ok){bookings=res.bookings||bookings; toast('Booking cancelled.'); renderStaff();} else toast(res.error||'Error',true);
+    }); });
+    table.querySelectorAll('[data-complete]').forEach(function(b){ b.addEventListener('click', async function(){
+      var res = await jsonp('updateBookingStatus',{id:b.getAttribute('data-complete'), status:'Completed'});
+      if(res.ok){bookings=res.bookings||bookings; toast('Marked as completed.'); renderStaff();} else toast(res.error||'Error',true);
+    }); });
+    table.querySelectorAll('[data-delete]').forEach(function(b){ b.addEventListener('click', async function(){
+      if(!confirm('Permanently delete this booking record?')) return;
+      var res = await jsonp('deleteBooking',{id:b.getAttribute('data-delete')});
+      if(res.ok){bookings=res.bookings||bookings; toast('Booking deleted.'); renderStaff();} else toast(res.error||'Error',true);
+    }); });
+  }
+
+  document.getElementById('staffSearch').addEventListener('input', renderStaffTable);
+  document.getElementById('staffStatusFilter').addEventListener('change', renderStaffTable);
+  document.getElementById('exportBtn').addEventListener('click', function(){
+    var headers=['Date','Time','Name','NJIT ID','Dorm Room','Status','Created At'];
+    var rows=bookings.map(function(b){return [b.date,fmtTimeRange(Number(b.hour),Number(b.min)),b.name,b.njit,b.roomNumber||'',b.status,b.createdAt||''];});
+    var csv=[headers].concat(rows).map(function(r){return r.map(function(v){return '"'+String(v).replace(/"/g,'""')+'"';}).join(',');}).join('\n');
+    var blob=new Blob([csv],{type:'text/csv'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a'); a.href=url; a.download='wellness-bookings-'+fmtDateISO(new Date())+'.csv'; a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  function populateEditTimeOptions(){
+    var sel=document.getElementById('editTime');
+    sel.innerHTML=timeSlots().map(function(s){return '<option value="'+s.hour+':'+s.min+'">'+fmtTimeRange(s.hour,s.min)+'</option>';}).join('');
+  }
+  function openEditModal(id){
+    var b=bookings.find(function(x){return String(x.id)===String(id);}); if(!b) return;
+    populateEditTimeOptions();
+    document.getElementById('editId').value=b.id;
+    document.getElementById('editName').value=b.name;
+    document.getElementById('editNjit').value=b.njit;
+    document.getElementById('editRoomNum').value=b.roomNumber||'';
+    document.getElementById('editDate').value=b.date;
+    document.getElementById('editTime').value=Number(b.hour)+':'+Number(b.min);
+    document.getElementById('editStatus').value=b.status;
+    document.getElementById('editModal').classList.add('active');
+  }
+  function closeEditModal(){ document.getElementById('editModal').classList.remove('active'); }
+  document.getElementById('editCancelBtn').addEventListener('click', closeEditModal);
+  document.getElementById('editModal').addEventListener('click', function(e){ if(e.target.id==='editModal') closeEditModal(); });
+  document.getElementById('editNjit').addEventListener('input', function(e){ e.target.value=e.target.value.replace(/\D/g,'').slice(0,8); });
+  document.getElementById('editForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var id=document.getElementById('editId').value;
+    var njit=document.getElementById('editNjit').value.trim();
+    if(!/^\d{8}$/.test(njit)){toast('NJIT ID must be exactly 8 digits.',true);return;}
+    var parts=document.getElementById('editTime').value.split(':');
+    var booking={
+      id:id, date:document.getElementById('editDate').value, hour:parseInt(parts[0],10), min:parseInt(parts[1],10),
+      name:document.getElementById('editName').value.trim(), njit:njit,
+      roomNumber:document.getElementById('editRoomNum').value.trim(),
+      status:document.getElementById('editStatus').value
+    };
+    var res = await jsonp('updateBooking',{booking:booking});
+    if(res.ok){bookings=res.bookings||bookings; closeEditModal(); toast('Booking updated.'); renderStaff();}
+    else toast(res.error||'Error',true);
+  });
+
+  function toast(msg,err){
+    var t=document.getElementById('toast');
+    t.textContent=msg; t.classList.toggle('error',!!err); t.classList.add('show');
+    clearTimeout(toast._tm); toast._tm=setTimeout(function(){t.classList.remove('show');},3000);
+  }
+
+  document.getElementById('navStudent').addEventListener('click', function(){ setView('student'); });
+  document.getElementById('navMyBookings').addEventListener('click', function(){ setView('mybookings'); });
+  document.getElementById('navStaff').addEventListener('click', function(){ if(staffLoggedIn) setView('staff'); else openLoginModal(); });
+
+  (async function init(){
+    await refreshBookings();
+    setView(staffLoggedIn ? 'staff' : 'student');
+    setInterval(async function(){
+      await refreshBookings();
+      if (currentView==='staff') renderStaffTable();
+      else if (currentView==='student') renderSchedule();
+      else if (currentView==='mybookings') renderMyBookings();
+    }, 30000);
+  })();
 </script>
 
 </body>
-</html>SS
+</html>
